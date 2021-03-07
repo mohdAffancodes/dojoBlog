@@ -1,0 +1,58 @@
+:root {
+   --themeColor: rgb(202, 202, 202);
+}
+
+.blog-preview {
+   background-color: #d6d6d611;
+   border-radius: 5px;
+   padding: 10px 16px;
+   margin: 20px 0;
+}
+.blog-preview:hover {
+   background-color: #ffffff23;
+   box-shadow: 1px 3px 5px rgba(0, 0, 0, 0.281);
+}
+
+.blog-preview i {
+   color: var(--themeColor);
+}
+
+.blog-preview p {
+   color: var(--themeColor);
+}
+
+.blog-preview h2 {
+   font-weight: 700;
+   font-size: 20px;
+   color: #f1356d;
+   margin-bottom: 8px;
+   margin-top: 2px;
+}
+
+.blog-list h3 {
+   font-weight: 700;
+}
+.blog-list h4 a {
+   color: #f1356d !important;
+   border-radius: 2px;
+   box-shadow: 0 0 0 0 rgb(253, 253, 253);
+   transform: scale(1);
+   animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+   0% {
+      transform: scale(0.95);
+      box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.7);
+   }
+
+   70% {
+      transform: scale(1);
+      box-shadow: 0 0 0 10px rgba(255, 255, 255, 0);
+   }
+
+   100% {
+      transform: scale(0.95);
+      box-shadow: 0 0 0 0 rgba(255, 255, 255, 0);
+   }
+}

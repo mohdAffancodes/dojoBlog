@@ -1,0 +1,10 @@
+.sideNavBtn {
+   width: 45%;
+   font-size: 15px !important;
+   background-color: #f1356d !important;
+   border-radius: 8px;
+   text-transform: none;
+}
+.sideNavBtn:hover {
+   background-color: #f1356d !important;
+}

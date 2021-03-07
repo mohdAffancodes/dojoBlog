@@ -1,0 +1,38 @@
+:root {
+   --themeColor2: #f1356d;
+}
+
+.nav-fixed {
+   margin: 0 auto;
+   background-color: transparent;
+}
+.nav-wrapper {
+   background-color: #ffffff;
+   border-bottom: 1px solid #f2f2f2;
+}
+.brand-logo {
+   color: var(--themeColor2) !important;
+   font-weight: 700;
+}
+.menu {
+   color: var(--themeColor2);
+}
+
+.myTabs {
+   font-weight: 900;
+   font-size: 20px;
+   color: var(--themeColor2);
+}
+
+@media only screen and (min-width: 976px) {
+   .nav-fixed {
+      margin-top: 20px;
+      width: 900px;
+   }
+   .nav-wrapper {
+      border-radius: 8px;
+   }
+   .brand-logo {
+      margin-left: 30px;
+   }
+}
