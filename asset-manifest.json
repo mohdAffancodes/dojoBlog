@@ -1,24 +1,24 @@
 {
   "files": {
-    "main.css": "/dojoBlog/static/css/main.56d1e0c7.chunk.css",
-    "main.js": "/dojoBlog/static/js/main.e0e2be19.chunk.js",
-    "main.js.map": "/dojoBlog/static/js/main.e0e2be19.chunk.js.map",
+    "main.css": "/dojoBlog/static/css/main.a7230069.chunk.css",
+    "main.js": "/dojoBlog/static/js/main.d3b17d13.chunk.js",
+    "main.js.map": "/dojoBlog/static/js/main.d3b17d13.chunk.js.map",
     "runtime-main.js": "/dojoBlog/static/js/runtime-main.c5d83e49.js",
     "runtime-main.js.map": "/dojoBlog/static/js/runtime-main.c5d83e49.js.map",
     "static/css/2.d70eda21.chunk.css": "/dojoBlog/static/css/2.d70eda21.chunk.css",
-    "static/js/2.32c1ec02.chunk.js": "/dojoBlog/static/js/2.32c1ec02.chunk.js",
-    "static/js/2.32c1ec02.chunk.js.map": "/dojoBlog/static/js/2.32c1ec02.chunk.js.map",
+    "static/js/2.b8a28285.chunk.js": "/dojoBlog/static/js/2.b8a28285.chunk.js",
+    "static/js/2.b8a28285.chunk.js.map": "/dojoBlog/static/js/2.b8a28285.chunk.js.map",
     "index.html": "/dojoBlog/index.html",
     "static/css/2.d70eda21.chunk.css.map": "/dojoBlog/static/css/2.d70eda21.chunk.css.map",
-    "static/css/main.56d1e0c7.chunk.css.map": "/dojoBlog/static/css/main.56d1e0c7.chunk.css.map",
-    "static/js/2.32c1ec02.chunk.js.LICENSE.txt": "/dojoBlog/static/js/2.32c1ec02.chunk.js.LICENSE.txt",
+    "static/css/main.a7230069.chunk.css.map": "/dojoBlog/static/css/main.a7230069.chunk.css.map",
+    "static/js/2.b8a28285.chunk.js.LICENSE.txt": "/dojoBlog/static/js/2.b8a28285.chunk.js.LICENSE.txt",
     "static/media/index.css": "/dojoBlog/static/media/dojoBG.ea20666d.jpg"
   },
   "entrypoints": [
     "static/js/runtime-main.c5d83e49.js",
     "static/css/2.d70eda21.chunk.css",
-    "static/js/2.32c1ec02.chunk.js",
-    "static/css/main.56d1e0c7.chunk.css",
-    "static/js/main.e0e2be19.chunk.js"
+    "static/js/2.b8a28285.chunk.js",
+    "static/css/main.a7230069.chunk.css",
+    "static/js/main.d3b17d13.chunk.js"
   ]
 }
