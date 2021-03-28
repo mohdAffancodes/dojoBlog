@@ -5,14 +5,19 @@ import "./blogDetails.css";
 const BlogDetails = () => {
    const { id } = useParams();
    const { data: blog, isLoading, error } = useFetch(
-      "https://my-json-server.typicode.com/mohdaffancodes/jsonServer/blogs" + id
+      "https://my-json-server.typicode.com/mohdaffancodes/jsonServer/blogs/" +
+         id
    );
    const history = useHistory();
 
    const deleteBlog = () => {
-      fetch("https://my-json-server.typicode.com/mohdaffancodes/jsonServer/blogs" + blog.id, {
-         method: "DELETE",
-      }).then(() => {
+      fetch(
+         "https://my-json-server.typicode.com/mohdaffancodes/jsonServer/blogs/" +
+            blog.id,
+         {
+            method: "DELETE",
+         }
+      ).then(() => {
          history.push("/");
       });
    };
