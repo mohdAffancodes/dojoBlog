@@ -18,12 +18,19 @@ const Contact = () => {
       e.preventDefault();
       setIsSending(true);
 
+      document.querySelector(".emailInput").setAttribute("readonly", "");
+      document.querySelector(".messageInput").setAttribute("readonly", "");
+
       db.add({
          email: email,
          message: message,
       }).then(() => {
          openModal();
          setIsSending(false);
+         document.querySelector(".emailInput").removeAttribute("readonly", "");
+         document
+            .querySelector(".messageInput")
+            .removeAttribute("readonly", "");
       });
    };
 
@@ -73,6 +80,7 @@ const Contact = () => {
                <input
                   type="email"
                   name="email"
+                  className="emailInput"
                   required
                   placeholder="Email Address"
                   onChange={(e) => {
@@ -82,6 +90,7 @@ const Contact = () => {
                <input
                   type="text"
                   name="message"
+                  className="messageInput"
                   required
                   placeholder="Your Message"
                   onChange={(e) => {
