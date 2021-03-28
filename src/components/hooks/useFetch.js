@@ -1,40 +1,37 @@
+import firebase from "../../firebase";
 import { useState, useEffect } from "react";
 
-const useFetch = (url) => {
+const useFetch = (collection) => {
    const [data, setData] = useState(null);
+   const [docId, setDocId] = useState(null);
    const [isLoading, setIsLoading] = useState(true);
    const [error, setError] = useState(null);
 
    useEffect(() => {
-      const abortCont = new AbortController();
-
-      fetch(url, { signal: abortCont.signal })
-         .then((res) => {
-            if (!res.ok) {
-               //.error coming back from server
-               throw Error("could not fetch the data for that resource");
-            }
-            return res.json();
-         })
-         .then((data) => {
+      const db = firebase.firestore().collection(collection);
+      db.orderBy("title")
+         .get()
+         .then((querySnapshot) => {
+            let items = [];
+            let ids = [];
+            querySnapshot.forEach((doc) => {
+               // doc.data() is never undefined for query doc snapshots
+               items.push(doc.data());
+               ids.push(doc.id);
+            });
+            //.console.log(ids);
+            setDocId(ids);
+            setData(items);
             setIsLoading(false);
-            setData(data);
-            setError(null);
          })
          .catch((err) => {
-            if (err.name === "AbortError") {
-               console.log("fetch aborted");
-            } else {
-               //.auto catches network / connection error
-               setIsLoading(false);
-               setError(err.message);
-            }
+            //.auto catches network / connection error
+            setIsLoading(false);
+            setError(err.message);
          });
-      //.abort the fetch
-      return () => abortCont.abort();
-   }, [url]);
+   }, [collection]);
 
-   return { data, isLoading, error };
+   return { data, docId, isLoading, error };
 };
 
 export default useFetch;

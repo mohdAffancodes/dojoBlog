@@ -6,11 +6,19 @@ const MobileNav = () => {
    useEffect(() => {
       document.querySelector(".sideNavBtn").addEventListener("click", () => {
          var elem = document.querySelector(".sidenav");
-         var instance = window.M.Sidenav.init(elem, {});
+         var instance = window.M.Sidenav.init(elem, {
+            edge: "bottom",
+         });
          instance.close();
       });
 
       document.getElementById("home").addEventListener("click", () => {
+         var elem = document.querySelector(".sidenav");
+         var instance = window.M.Sidenav.init(elem, {});
+         instance.close();
+      });
+
+      document.getElementById("contact").addEventListener("click", () => {
          var elem = document.querySelector(".sidenav");
          var instance = window.M.Sidenav.init(elem, {});
          instance.close();
@@ -20,7 +28,7 @@ const MobileNav = () => {
    return (
       <ul className="sidenav" id="mobile-demo">
          <li>
-            <Link to="/" id="home">
+            <Link to="/dojoBlog" id="home">
                <span
                   style={{
                      fontSize: "20px",
@@ -34,8 +42,22 @@ const MobileNav = () => {
             </Link>
          </li>
          <li>
+            <Link to="/dojoBlog/contact" id="contact">
+               <span
+                  style={{
+                     fontSize: "20px",
+                     color: "#f1356d",
+                     fontWeight: "900",
+                     marginLeft: "10px",
+                  }}
+               >
+                  Contact
+               </span>
+            </Link>
+         </li>
+         <li>
             <Link
-               to="/create"
+               to="/dojoBlog/create"
                className="waves-effect waves-light btn white-text sideNavBtn"
             >
                New Blog

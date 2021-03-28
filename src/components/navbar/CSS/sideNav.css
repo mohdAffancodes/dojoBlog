@@ -1,5 +1,5 @@
 .sideNavBtn {
-   width: 45%;
+   width: 135px;
    font-size: 15px !important;
    background-color: #f1356d !important;
    border-radius: 8px;
@@ -7,4 +7,18 @@
 }
 .sideNavBtn:hover {
    background-color: #f1356d !important;
+}
+#mobile-demo li:nth-child(1):hover {
+   color: #fff !important;
+   background-color: #f1356d !important;
+}
+#mobile-demo li:nth-child(1):hover span {
+   color: #fff !important;
+}
+#mobile-demo li:nth-child(2):hover {
+   color: #fff !important;
+   background-color: #f1356d !important;
+}
+#mobile-demo li:nth-child(2):hover span {
+   color: #fff !important;
 }

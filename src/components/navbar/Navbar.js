@@ -14,9 +14,10 @@ const Navbar = () => {
 
    return (
       <section id="nav">
+         <div className="navSpace"></div>
          <nav className="nav-fixed">
             <div className="nav-wrapper">
-               <Link to="/" className="brand-logo">
+               <Link to="/dojoBlog" className="brand-logo">
                   Dojo Blog
                </Link>
                <Link
@@ -28,13 +29,38 @@ const Navbar = () => {
                </Link>
                <ul id="nav-mobile" className="right hide-on-med-and-down">
                   <li>
-                     <Link to="/" className="myTabs waves-effect">
-                        Home
+                     <Link
+                        to="/dojoBlog"
+                        className="myTabs waves-effect navIcons"
+                     >
+                        <i
+                           className="material-icons"
+                           style={{
+                              fontSize: "30px",
+                           }}
+                        >
+                           home
+                        </i>
                      </Link>
                   </li>
                   <li>
                      <Link
-                        to="/create"
+                        to="/dojoBlog/contact"
+                        className="myTabs waves-effect navIcons"
+                     >
+                        <i
+                           className="material-icons"
+                           style={{
+                              fontSize: "30px",
+                           }}
+                        >
+                           call
+                        </i>
+                     </Link>
+                  </li>
+                  <li>
+                     <Link
+                        to="/dojoBlog/create"
                         style={{
                            backgroundColor: "#f1356d",
                            borderRadius: "8px",
