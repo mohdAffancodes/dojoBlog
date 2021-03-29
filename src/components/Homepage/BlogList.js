@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import "./blogList.css";
 
-const BlogList = ({ blogs, docId, title }) => {
+const BlogList = ({ blogs, docId }) => {
    return (
       <div className="blog-list">
          {blogs.length === 0 && (
@@ -12,11 +12,11 @@ const BlogList = ({ blogs, docId, title }) => {
                </h4>
             </div>
          )}
-         {blogs.length > 0 && <h3>{title}</h3>}
+         {blogs.length > 0 && <h3>All blogs</h3>}
          {blogs.map((blog, index) => {
             return (
                <Link to={`/dojoBlog/blogs/${docId[index]}`}>
-                  <div className="blog-preview" key={docId[index]}>
+                  <div className="blog-preview" key={index}>
                      <h2>{blog.title}</h2>
                      <p>Written by {blog.author}</p>
                   </div>

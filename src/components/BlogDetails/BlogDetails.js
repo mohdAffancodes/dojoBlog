@@ -1,6 +1,6 @@
 import { useParams, useHistory } from "react-router-dom";
 import QuillEditor from "../QuillEditor/QuillEditor";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import useFetch from "../hooks/useFetch";
 import firebase from "../../firebase";
 import { Helmet } from "react-helmet";
@@ -12,20 +12,8 @@ const BlogDetails = () => {
    const [blog, setBlog] = useState(null);
    const [enable, setEnable] = useState(false);
    const [updated, setUpdated] = useState(false);
-   const [isMobile, setIsMobile] = useState(false);
-   const [editable, setEditable] = useState(false);
    //.Using fetch hook
    const { isLoading, error } = useFetch("blog1");
-   //.useEffect hook for determining if the device is a mobile/tab
-   useEffect(() => {
-      if (
-         /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
-            navigator.userAgent
-         )
-      ) {
-         setIsMobile(true);
-      }
-   }, []);
    //.Calling specified data
    const db = firebase.firestore().collection("blog1");
    db.doc(id)
@@ -42,8 +30,9 @@ const BlogDetails = () => {
          });
    };
 
-   const editBlog = () => {
-      let editIcon = document.querySelector(".editIcon");
+   const editBlog = (e) => {
+      e = e || window.event;
+      let editIcon = e.target || e.srcElement;
       //.element to be edited
       let blogTitle = document.querySelector("#title");
       let toolbar = document.querySelector("#blogBody .ql-toolbar");
@@ -51,14 +40,10 @@ const BlogDetails = () => {
       if (editIcon.textContent === "edit") {
          blogTitle.contentEditable = true;
          editIcon.textContent = "check";
-         setEditable(true);
          setEnable(true);
          //.make toolbar visible
          toolbar.style.visibility = "visible";
          toolbar.style.setProperty("height", "initial");
-         setTimeout(() => {
-            setEditable(false);
-         }, 1000);
       } else if (editIcon.textContent === "check") {
          setUpdated(true);
          blogTitle.contentEditable = true;
@@ -84,7 +69,6 @@ const BlogDetails = () => {
    return (
       <div className="blog-details">
          <Helmet>{blog && <title>Dojo-Blog | {blog.title}</title>}</Helmet>
-         {editable && !updated && <h3>Blog is ready to be edited</h3>}
          {updated && <h2>Saving Changes</h2>}
          {(updated || isLoading) && (
             <div className="progress">
@@ -111,22 +95,25 @@ const BlogDetails = () => {
                </h2>
                <h6>
                   <span id="author">Written by {blog.author}</span>
-                  {!isMobile && (
-                     <i className="material-icons editIcon" onClick={editBlog}>
-                        edit
-                     </i>
-                  )}
+                  <i
+                     className="material-icons editIcon hide-on-med-and-down"
+                     onClick={editBlog}
+                  >
+                     edit
+                  </i>
                </h6>
                <QuillEditor id="blogBody" data={blog.body} enable={enable} />
             </article>
          )}
-         {isMobile && (
-            <div className="floater">
-               <i className="material-icons editIcon" onClick={editBlog}>
-                  edit
-               </i>
-            </div>
-         )}
+         <div className="floater hide-on-large-only">
+            <i
+               className="material-icons editIcon"
+               onClick={editBlog}
+               style={{ fontSize: "30px" }}
+            >
+               edit
+            </i>
+         </div>
       </div>
    );
 };

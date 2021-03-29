@@ -35,8 +35,6 @@ const Create = () => {
          //.console.log("not editable");
          setIsSending(true);
          setEnable(false);
-         document.querySelector(".authorInput").setAttribute("readonly", "");
-         document.querySelector(".titleInput").setAttribute("readonly", "");
 
          if (editor === "Please Fill this") {
             setIsSending(false);
@@ -48,12 +46,6 @@ const Create = () => {
                author: author,
             }).then(() => {
                setEnable(true);
-               document
-                  .querySelector(".authorInput")
-                  .removeAttribute("readonly", "");
-               document
-                  .querySelector(".titleInput")
-                  .removeAttribute("readonly", "");
                //console.log("New blog Added");
                setIsSending(false);
                history.push("/dojoBlog");
@@ -78,9 +70,11 @@ const Create = () => {
                   setTitle(e.target.value);
                }}
                className="titleInput"
+               disabled={isSending}
             />
             <h6>Blog body:</h6>
             <QuillEditor placeholder={"Compose an epic"} enable={enable} />
+
             <label style={{ marginTop: "10px" }}>Blog author:</label>
             <input
                type="text"
@@ -89,14 +83,14 @@ const Create = () => {
                   setAuthor(e.target.value);
                }}
                className="authorInput"
+               disabled={isSending}
             />
-            {!isSending && (
-               <button className="waves-effect waves-light">Add Blog</button>
-            )}
-            {isSending && (
+            {isSending ? (
                <span className="loader">
                   <span className="loader-inner"></span>
                </span>
+            ) : (
+               <button className="waves-effect waves-light">Add Blog</button>
             )}
          </form>
       </div>

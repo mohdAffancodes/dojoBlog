@@ -10,7 +10,6 @@ const Contact = () => {
    const history = useHistory();
    const [email, setEmail] = useState("");
    const [message, setMessage] = useState("");
-   const [disable, setDisable] = useState(false);
    const [isSending, setIsSending] = useState(false);
    const db = firebase.firestore().collection("messages");
 
@@ -61,7 +60,6 @@ const Contact = () => {
                         className="material-icons closeIcon"
                         style={{ fontSize: "30px" }}
                         onClick={() => {
-                           setDisable(true);
                            setTimeout(() => {
                               history.push("/dojoBlog");
                            }, 1000 / 2);
@@ -86,6 +84,7 @@ const Contact = () => {
                   onChange={(e) => {
                      setEmail(e.target.value);
                   }}
+                  disabled={isSending}
                />
                <input
                   type="text"
@@ -96,25 +95,17 @@ const Contact = () => {
                   onChange={(e) => {
                      setMessage(e.target.value);
                   }}
+                  disabled={isSending}
                />
-               {!isSending && !disable && (
+               {!isSending ? (
                   <button
                      type="submit"
                      className="right waves-effect waves-light"
+                     disabled={isSending}
                   >
                      Send
                   </button>
-               )}
-               {disable && !isSending && (
-                  <button
-                     type="submit"
-                     className="right waves-effect waves-light"
-                     disabled
-                  >
-                     Send
-                  </button>
-               )}
-               {isSending && (
+               ) : (
                   <span className="loader right">
                      <span className="loader-inner"></span>
                   </span>
