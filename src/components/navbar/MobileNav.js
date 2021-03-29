@@ -6,9 +6,7 @@ const MobileNav = () => {
    useEffect(() => {
       document.querySelector(".sideNavBtn").addEventListener("click", () => {
          var elem = document.querySelector(".sidenav");
-         var instance = window.M.Sidenav.init(elem, {
-            edge: "bottom",
-         });
+         var instance = window.M.Sidenav.init(elem,{});
          instance.close();
       });
 
