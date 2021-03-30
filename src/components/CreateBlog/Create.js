@@ -19,14 +19,28 @@ const Create = () => {
    const handleSubmit = (e) => {
       e.preventDefault();
       let delta = window.quill.getContents();
-
       let options = delta.ops;
+      let media;
+      //.console.log(options);
+      function compareKeys(a, b) {
+         var aKeys = Object.keys(a).sort();
+         var bKeys = Object.keys(b).sort();
+         return JSON.stringify(aKeys) === JSON.stringify(bKeys);
+      }
+      //.checking for img or vid
+      for (let i = 0; i < options.length; i++) {
+         if (
+            compareKeys(options[i].insert, { video: "" }) ||
+            compareKeys(options[i].insert, { image: "" })
+         ) {
+            media = true;
+         }
+      }
 
       let editor = document.querySelector(".ql-container").textContent;
       if (
-         editor === "" &&
-         options[0].insert === "\n" &&
-         (options[1].insert === null || undefined || "\n")
+         (media === false && editor === "" && options[0].insert === "\n") ||
+         (media === false && editor === "")
       ) {
          let pleaseFillThis = {
             ops: [
@@ -45,18 +59,18 @@ const Create = () => {
 
          if (editor === "Please Fill this") {
             setIsSending(false);
-            history.push("/dojoBlog");
+            //history.push("/dojoBlog");
          } else {
-            db.add({
+            /*db.add({
                title: title,
                body: JSON.stringify(delta),
                author: author,
-            }).then(() => {
-               setEnable(true);
-               //console.log("New blog Added");
-               setIsSending(false);
-               history.push("/dojoBlog");
-            });
+            }).then(() => {*/
+            setEnable(true);
+            //console.log("New blog Added");
+            setIsSending(false);
+            //history.push("/dojoBlog");
+            //});
          }
       }
    };
