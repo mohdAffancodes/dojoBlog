@@ -5,6 +5,7 @@ body {
    font-family: "Quicksand";
    color: rgb(202, 202, 202);
    background-image: url("./dojoBG.jpg");
+   background-position-x: +300px;
 }
 
 .content {
@@ -18,9 +19,19 @@ body {
       background-position-x: -300px;
    }
 }
+@media only screen and (max-width: 1200px) {
+   body {
+      background-position-x: +200px;
+   }
+}
+@media only screen and (max-width: 1050px) {
+   body {
+      background-position-x: +50px;
+   }
+}
 @media only screen and (max-width: 500px) {
    body {
-      background-position-x: 100px;
+      background-position-x: +100px;
    }
 }
 
