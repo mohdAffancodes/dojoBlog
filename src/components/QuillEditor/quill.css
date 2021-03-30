@@ -13,10 +13,6 @@
    font-family: "Quicksand";
 }
 
-.ql-toolbar:focus {
-   border: 1px solid #f1356d !important;
-}
-
 .ql-editing {
    all: initial;
 }
