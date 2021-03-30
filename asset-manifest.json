@@ -1,8 +1,8 @@
 {
   "files": {
-    "main.css": "/dojoBlog/static/css/main.27a5523f.chunk.css",
-    "main.js": "/dojoBlog/static/js/main.3f80072c.chunk.js",
-    "main.js.map": "/dojoBlog/static/js/main.3f80072c.chunk.js.map",
+    "main.css": "/dojoBlog/static/css/main.742f65f6.chunk.css",
+    "main.js": "/dojoBlog/static/js/main.efd4bfcf.chunk.js",
+    "main.js.map": "/dojoBlog/static/js/main.efd4bfcf.chunk.js.map",
     "runtime-main.js": "/dojoBlog/static/js/runtime-main.c5d83e49.js",
     "runtime-main.js.map": "/dojoBlog/static/js/runtime-main.c5d83e49.js.map",
     "static/css/2.d70eda21.chunk.css": "/dojoBlog/static/css/2.d70eda21.chunk.css",
@@ -10,7 +10,7 @@
     "static/js/2.f667732b.chunk.js.map": "/dojoBlog/static/js/2.f667732b.chunk.js.map",
     "index.html": "/dojoBlog/index.html",
     "static/css/2.d70eda21.chunk.css.map": "/dojoBlog/static/css/2.d70eda21.chunk.css.map",
-    "static/css/main.27a5523f.chunk.css.map": "/dojoBlog/static/css/main.27a5523f.chunk.css.map",
+    "static/css/main.742f65f6.chunk.css.map": "/dojoBlog/static/css/main.742f65f6.chunk.css.map",
     "static/js/2.f667732b.chunk.js.LICENSE.txt": "/dojoBlog/static/js/2.f667732b.chunk.js.LICENSE.txt",
     "static/media/index.css": "/dojoBlog/static/media/dojoBG.ea20666d.jpg"
   },
@@ -18,7 +18,7 @@
     "static/js/runtime-main.c5d83e49.js",
     "static/css/2.d70eda21.chunk.css",
     "static/js/2.f667732b.chunk.js",
-    "static/css/main.27a5523f.chunk.css",
-    "static/js/main.3f80072c.chunk.js"
+    "static/css/main.742f65f6.chunk.css",
+    "static/js/main.efd4bfcf.chunk.js"
   ]
 }
