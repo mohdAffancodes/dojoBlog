@@ -29,10 +29,7 @@ const Navbar = () => {
                </Link>
                <ul id="nav-mobile" className="right hide-on-med-and-down">
                   <li>
-                     <Link
-                        to="/dojoBlog"
-                        className="myTabs waves-effect navIcons"
-                     >
+                     <Link to="/dojoBlog" className="myTabs navIcons">
                         <i
                            className="material-icons"
                            style={{
@@ -44,10 +41,7 @@ const Navbar = () => {
                      </Link>
                   </li>
                   <li>
-                     <Link
-                        to="/dojoBlog/contact"
-                        className="myTabs waves-effect navIcons"
-                     >
+                     <Link to="/dojoBlog/contact" className="myTabs navIcons">
                         <i
                            className="material-icons"
                            style={{
