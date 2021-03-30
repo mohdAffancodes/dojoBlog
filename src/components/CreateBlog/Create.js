@@ -19,8 +19,15 @@ const Create = () => {
    const handleSubmit = (e) => {
       e.preventDefault();
       let delta = window.quill.getContents();
+
+      let options = delta.ops;
+
       let editor = document.querySelector(".ql-container").textContent;
-      if (editor === "" && delta.ops[0].insert === "\n") {
+      if (
+         editor === "" &&
+         options[0].insert === "\n" &&
+         (options[1].insert === null || undefined || "\n")
+      ) {
          let pleaseFillThis = {
             ops: [
                {

@@ -27,13 +27,15 @@ const QuillEditor = ({ id, placeholder, data, enable }) => {
          [{ list: "ordered" }, { list: "bullet" }],
          [{ script: "sub" }, { script: "super" }], // superscript/subscript
          [{ indent: "-1" }, { indent: "+1" }], // outdent/indent
+         [{ align: [] }],
 
-         [{ size: ["small", false, "large", "huge"] }], // custom dropdown
-         [{ header: [1, 2, 3, 4, 5, 6, false] }],
+         [
+            { size: ["small", false, "large", "huge"] },
+            { header: [1, 2, 3, 4, 5, 6, false] },
+         ],
 
          [{ color: [] }, { background: [] }], // dropdown with defaults from theme
          [{ font: [] }],
-         [{ align: [] }],
 
          ["clean"],
 
@@ -81,9 +83,32 @@ const QuillEditor = ({ id, placeholder, data, enable }) => {
       [quill]
    );
 
+   const toggleFocusBorder = (Q) => {
+      let focus;
+      let container = document.querySelector(".ql-container");
+      let toolbar = document.querySelector(".ql-toolbar");
+      setInterval(() => {
+         focus = Q.hasFocus();
+         if (focus) {
+            container.classList.remove("Blur");
+            toolbar.classList.remove("Blur");
+            container.classList.add("Focus");
+            toolbar.classList.add("Focus");
+         }
+         if (!focus) {
+            container.classList.remove("Focus");
+            toolbar.classList.remove("Focus");
+            container.classList.add("Blur");
+            toolbar.classList.add("Blur");
+         }
+      }, 1000);
+   };
+
    useEffect(() => {
       if (quill) {
          quill.enable(enable);
+         toggleFocusBorder(quill);
+         //.undo and redo buttons
          document.querySelector(".ql-undo").appendChild(undo);
          document.querySelector(".ql-redo").appendChild(redo);
          handleClick(".ql-undo");
