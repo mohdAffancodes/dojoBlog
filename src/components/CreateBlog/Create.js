@@ -59,18 +59,18 @@ const Create = () => {
 
          if (editor === "Please Fill this") {
             setIsSending(false);
-            //history.push("/dojoBlog");
+            history.push("/dojoBlog");
          } else {
-            /*db.add({
+            db.add({
                title: title,
                body: JSON.stringify(delta),
                author: author,
-            }).then(() => {*/
-            setEnable(true);
-            //console.log("New blog Added");
-            setIsSending(false);
-            //history.push("/dojoBlog");
-            //});
+            }).then(() => {
+               setEnable(true);
+               //console.log("New blog Added");
+               setIsSending(false);
+               history.push("/dojoBlog");
+            });
          }
       }
    };
