@@ -1,6 +1,6 @@
 import { useParams, useHistory } from "react-router-dom";
 import QuillEditor from "../QuillEditor/QuillEditor";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import useFetch from "../hooks/useFetch";
 import firebase from "../../firebase";
 import { Helmet } from "react-helmet";

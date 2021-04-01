@@ -60,7 +60,7 @@ const Create = () => {
 
          if (editor === "Please Fill this") {
             setIsSending(false);
-            //history.push("/dojoBlog");
+            history.push("/dojoBlog");
          } else {
             db.add({
                createdAt: Date.now(),
@@ -71,7 +71,7 @@ const Create = () => {
                setEnable(true);
                //console.log("New blog Added");
                setIsSending(false);
-               //history.push("/dojoBlog");
+               history.push("/dojoBlog");
             });
          }
       }
