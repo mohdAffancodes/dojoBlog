@@ -1,6 +1,6 @@
 import { useParams, useHistory } from "react-router-dom";
 import QuillEditor from "../QuillEditor/QuillEditor";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import useFetch from "../hooks/useFetch";
 import firebase from "../../firebase";
 import { Helmet } from "react-helmet";
@@ -105,15 +105,17 @@ const BlogDetails = () => {
                <QuillEditor id="blogBody" data={blog.body} enable={enable} />
             </article>
          )}
-         <div className="floater hide-on-large-only">
-            <i
-               className="material-icons editIcon"
-               onClick={editBlog}
-               style={{ fontSize: "30px" }}
-            >
-               edit
-            </i>
-         </div>
+         {!isLoading && !updated && (
+            <div className="floater hide-on-large-only">
+               <i
+                  className="material-icons editIcon"
+                  onClick={editBlog}
+                  style={{ fontSize: "30px" }}
+               >
+                  edit
+               </i>
+            </div>
+         )}
       </div>
    );
 };

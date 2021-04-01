@@ -12,7 +12,38 @@ const BlogList = ({ blogs, docId }) => {
                </h4>
             </div>
          )}
-         {blogs.length > 0 && <h3>All blogs</h3>}
+         {blogs.length > 0 && (
+            <h3>
+               All blogs
+               <Link
+                  to="/dojoBlog/create"
+                  style={{
+                     backgroundColor: "#f1356d",
+                     borderRadius: "8px",
+                     textTransform: "none",
+                  }}
+                  className="myTabs waves-effect waves-light btn white-text new hide-on-small-only"
+               >
+                  New Blog
+               </Link>
+               <Link
+                  to="/dojoBlog/create"
+                  style={{
+                     backgroundColor: "#f1356d",
+                  }}
+                  className="myTabs waves-effect waves-light btn white-text newfloater hide-on-med-and-up"
+               >
+                  <i
+                     className="material-icons"
+                     style={{
+                        fontSize: "40px",
+                     }}
+                  >
+                     add
+                  </i>
+               </Link>
+            </h3>
+         )}
          {blogs.map((blog, index) => {
             return (
                <Link to={`/dojoBlog/blogs/${docId[index]}`}>

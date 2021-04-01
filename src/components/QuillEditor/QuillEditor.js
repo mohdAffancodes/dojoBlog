@@ -2,8 +2,9 @@ import { useState, useEffect, useCallback } from "react";
 import { Helmet } from "react-helmet";
 //Quill JS
 import { useQuill } from "react-quilljs";
+//CSS
 import "quill/dist/quill.snow.css";
-import "./quill.css";
+import "./CSS/quill.css";
 //.undo
 let undo = document.createElement("i");
 undo.textContent = "rotate_left";

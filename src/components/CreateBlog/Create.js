@@ -20,7 +20,7 @@ const Create = () => {
       e.preventDefault();
       let delta = window.quill.getContents();
       let options = delta.ops;
-      let media;
+      let media = false;
       //.console.log(options);
       function compareKeys(a, b) {
          var aKeys = Object.keys(a).sort();
@@ -34,13 +34,14 @@ const Create = () => {
             compareKeys(options[i].insert, { image: "" })
          ) {
             media = true;
+            //.console.log(media);
          }
       }
 
       let editor = document.querySelector(".ql-container").textContent;
       if (
-         (media === false && editor === "" && options[0].insert === "\n") ||
-         (media === false && editor === "")
+         media === false &&
+         ((editor === "" && options[0].insert === "\n") || editor === "")
       ) {
          let pleaseFillThis = {
             ops: [
@@ -59,9 +60,10 @@ const Create = () => {
 
          if (editor === "Please Fill this") {
             setIsSending(false);
-            history.push("/dojoBlog");
+            //history.push("/dojoBlog");
          } else {
             db.add({
+               createdAt: Date.now(),
                title: title,
                body: JSON.stringify(delta),
                author: author,
@@ -69,7 +71,7 @@ const Create = () => {
                setEnable(true);
                //console.log("New blog Added");
                setIsSending(false);
-               history.push("/dojoBlog");
+               //history.push("/dojoBlog");
             });
          }
       }

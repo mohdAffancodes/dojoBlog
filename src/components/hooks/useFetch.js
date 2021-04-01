@@ -9,7 +9,7 @@ const useFetch = (collection) => {
 
    useEffect(() => {
       const db = firebase.firestore().collection(collection);
-      db.orderBy("title")
+      db.orderBy("createdAt", "desc")
          .get()
          .then((querySnapshot) => {
             let items = [];

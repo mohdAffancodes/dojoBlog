@@ -18,7 +18,7 @@ const Home = () => {
                <div className="indeterminate pink accent-3-only"></div>
             </div>
          )}
-         {blogs && <BlogList blogs={blogs} docId={docId} />}
+         {!error && blogs && <BlogList blogs={blogs} docId={docId}/>}
       </div>
    );
 };
