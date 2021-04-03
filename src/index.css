@@ -4,35 +4,13 @@ body {
    margin: 0;
    font-family: "Quicksand";
    color: rgb(202, 202, 202);
-   background-image: url("./dojoBG.jpg");
-   background-position-x: +300px;
+   background-color: #1c1c1c;
 }
 
 .content {
    max-width: 800px;
    margin: 0 auto;
    padding: 20px;
-}
-
-@media only screen and (max-width: 900px) {
-   body {
-      background-position-x: -300px;
-   }
-}
-@media only screen and (max-width: 1200px) {
-   body {
-      background-position-x: +200px;
-   }
-}
-@media only screen and (max-width: 1050px) {
-   body {
-      background-position-x: +50px;
-   }
-}
-@media only screen and (max-width: 500px) {
-   body {
-      background-position-x: +100px;
-   }
 }
 
 .material-icons {

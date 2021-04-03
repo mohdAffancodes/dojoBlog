@@ -46,8 +46,8 @@ const BlogList = ({ blogs, docId }) => {
          )}
          {blogs.map((blog, index) => {
             return (
-               <Link to={`/dojoBlog/blogs/${docId[index]}`}>
-                  <div className="blog-preview" key={index}>
+               <Link to={`/dojoBlog/blogs/${docId[index]}`} key={docId[index]}>
+                  <div className="blog-preview">
                      <h2>{blog.title}</h2>
                      <p>Written by {blog.author}</p>
                   </div>

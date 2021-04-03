@@ -1,8 +1,7 @@
 import { useParams, useHistory } from "react-router-dom";
 import QuillEditor from "../QuillEditor/QuillEditor";
-import { useState } from "react";
-import useFetch from "../hooks/useFetch";
-import firebase from "../../firebase";
+import { useState, useEffect } from "react";
+import useFetch from "../../hooks/useFetch";
 import { Helmet } from "react-helmet";
 import "./blogDetails.css";
 
@@ -13,14 +12,11 @@ const BlogDetails = () => {
    const [enable, setEnable] = useState(false);
    const [updated, setUpdated] = useState(false);
    //.Using fetch hook
-   const { isLoading, error } = useFetch("blog1");
-   //.Calling specified data
-   const db = firebase.firestore().collection("blog1");
-   db.doc(id)
-      .get()
-      .then((doc) => {
-         setBlog(doc.data());
-      });
+   const { db, data, isLoading, error } = useFetch("blog1", id);
+   //.setting the data
+   useEffect(() => {
+      setBlog(data);
+   }, [data]);
 
    const deleteBlog = () => {
       db.doc(id)
@@ -67,56 +63,60 @@ const BlogDetails = () => {
    };
 
    return (
-      <div className="blog-details">
-         <Helmet>{blog && <title>Dojo-Blog | {blog.title}</title>}</Helmet>
-         {updated && <h2>Saving Changes</h2>}
-         {(updated || isLoading) && (
-            <div className="progress">
-               <div className="indeterminate pink accent-3-only"></div>
-            </div>
-         )}
-         {error && (
-            <div style={{ fontSize: "20px", fontWeight: "700" }}>{error}</div>
-         )}
-         {blog && !updated && (
-            <article>
-               <h2>
-                  <span id="title">{blog.title}</span>
+      <>
+         <Helmet>{blog && <title>{blog.title}</title>}</Helmet>
+         <div className="blog-details">
+            {updated && <h2>Saving Changes</h2>}
+            {(updated || isLoading) && (
+               <div className="progress">
+                  <div className="indeterminate pink accent-3-only"></div>
+               </div>
+            )}
+            {error && (
+               <div style={{ fontSize: "20px", fontWeight: "700" }}>
+                  {error}
+               </div>
+            )}
+            {blog && !updated && (
+               <article>
+                  <h2>
+                     <span id="title">{blog.title}</span>
+                     <i
+                        className="material-icons right deleteIcon"
+                        style={{
+                           cursor: "pointer",
+                           fontSize: "40px",
+                        }}
+                        onClick={deleteBlog}
+                     >
+                        delete
+                     </i>
+                  </h2>
+                  <h6>
+                     <span id="author">Written by {blog.author}</span>
+                     <i
+                        className="material-icons editIcon hide-on-med-and-down"
+                        onClick={editBlog}
+                     >
+                        edit
+                     </i>
+                  </h6>
+                  <QuillEditor id="blogBody" data={blog.body} enable={enable} />
+               </article>
+            )}
+            {!isLoading && !updated && (
+               <div className="floater hide-on-large-only">
                   <i
-                     className="material-icons right deleteIcon"
-                     style={{
-                        cursor: "pointer",
-                        fontSize: "40px",
-                     }}
-                     onClick={deleteBlog}
-                  >
-                     delete
-                  </i>
-               </h2>
-               <h6>
-                  <span id="author">Written by {blog.author}</span>
-                  <i
-                     className="material-icons editIcon hide-on-med-and-down"
+                     className="material-icons editIcon"
                      onClick={editBlog}
+                     style={{ fontSize: "30px" }}
                   >
                      edit
                   </i>
-               </h6>
-               <QuillEditor id="blogBody" data={blog.body} enable={enable} />
-            </article>
-         )}
-         {!isLoading && !updated && (
-            <div className="floater hide-on-large-only">
-               <i
-                  className="material-icons editIcon"
-                  onClick={editBlog}
-                  style={{ fontSize: "30px" }}
-               >
-                  edit
-               </i>
-            </div>
-         )}
-      </div>
+               </div>
+            )}
+         </div>
+      </>
    );
 };
 

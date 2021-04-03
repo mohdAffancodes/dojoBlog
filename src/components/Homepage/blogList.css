@@ -77,3 +77,8 @@
    align-items: center;
    justify-content: center;
 }
+@media only screen and (min-width: 600px) {
+   .ql-editor img {
+      width: 70%;
+   }
+}

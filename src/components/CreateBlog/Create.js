@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Helmet } from "react-helmet";
 import { useHistory } from "react-router-dom";
-import firebase from "../../firebase";
+import useFetch from "../../hooks/useFetch";
 import "./CSS/create.css";
 import "./CSS/loader.css";
 import QuillEditor from "../QuillEditor/QuillEditor";
@@ -14,7 +14,7 @@ const Create = () => {
    const [isSending, setIsSending] = useState(false);
    const [author, setAuthor] = useState("Anonymous");
 
-   const db = firebase.firestore().collection("blog1");
+   const { db } = useFetch("blog1");
 
    const handleSubmit = (e) => {
       e.preventDefault();
@@ -78,45 +78,47 @@ const Create = () => {
    };
 
    return (
-      <div className="create">
+      <>
          <Helmet>
             <title>Dojo-Blog | Create</title>
          </Helmet>
-         <h3 className="add">Add a new blog</h3>
-         <form onSubmit={handleSubmit}>
-            <label>Blog title:</label>
-            <input
-               type="text"
-               required
-               value={title}
-               onChange={(e) => {
-                  setTitle(e.target.value);
-               }}
-               className="titleInput"
-               disabled={isSending}
-            />
-            <h6>Blog body:</h6>
-            <QuillEditor placeholder={"Compose an epic"} enable={enable} />
+         <div className="create">
+            <h3 className="add">Add a new blog</h3>
+            <form onSubmit={handleSubmit}>
+               <label>Blog title:</label>
+               <input
+                  type="text"
+                  required
+                  value={title}
+                  onChange={(e) => {
+                     setTitle(e.target.value);
+                  }}
+                  className="titleInput"
+                  disabled={isSending}
+               />
+               <h6>Blog body:</h6>
+               <QuillEditor placeholder={"Compose an epic"} enable={enable} />
 
-            <label style={{ marginTop: "10px" }}>Blog author:</label>
-            <input
-               type="text"
-               required
-               onChange={(e) => {
-                  setAuthor(e.target.value);
-               }}
-               className="authorInput"
-               disabled={isSending}
-            />
-            {isSending ? (
-               <span className="loader">
-                  <span className="loader-inner"></span>
-               </span>
-            ) : (
-               <button className="waves-effect waves-light">Add Blog</button>
-            )}
-         </form>
-      </div>
+               <label style={{ marginTop: "10px" }}>Blog author:</label>
+               <input
+                  type="text"
+                  required
+                  onChange={(e) => {
+                     setAuthor(e.target.value);
+                  }}
+                  className="authorInput"
+                  disabled={isSending}
+               />
+               {isSending ? (
+                  <span className="loader">
+                     <span className="loader-inner"></span>
+                  </span>
+               ) : (
+                  <button className="waves-effect waves-light">Add Blog</button>
+               )}
+            </form>
+         </div>
+      </>
    );
 };
 
