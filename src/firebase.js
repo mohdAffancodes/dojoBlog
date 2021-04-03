@@ -9,5 +9,10 @@ var firebaseConfig = {
    appId: process.env.REACT_APP_APP_ID,
    measurementId: process.env.REACT_APP_MEASUREMENT_ID,
 };
-firebase.initializeApp(firebaseConfig);
+if (!firebase.apps.length) {
+   firebase.initializeApp(firebaseConfig);
+} else {
+   firebase.app(); // if already initialized, use that one
+}
+firebase.firestore().settings({ timeStampsInSnapshots: true });
 export default firebase;
