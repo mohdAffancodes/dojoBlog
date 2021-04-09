@@ -74,6 +74,14 @@
    height: 0px;
    visibility: hidden;
 }
+@media only screen and (min-width: 600px) {
+   .ql-toolbar.ql-snow .ql-formats {
+      margin-top: 5px !important;
+   }
+   #blogBody .ql-snow.ql-toolbar::after {
+      padding-top: 5px;
+   }
+}
 /*floating button*/
 .floater {
    position: fixed;

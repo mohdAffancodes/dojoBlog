@@ -41,6 +41,7 @@ const QuillEditor = ({ id, placeholder, data, enable }) => {
          ["clean"],
 
          ["undo", "redo"],
+         [{ direction: "rtl" }],
       ],
    };
 
@@ -66,6 +67,7 @@ const QuillEditor = ({ id, placeholder, data, enable }) => {
       "image",
       "video",
       "indent",
+      "direction",
    ];
 
    const { quill, quillRef } = useQuill({

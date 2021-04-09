@@ -54,9 +54,7 @@ const Contact = () => {
                            className="material-icons closeIcon"
                            style={{ fontSize: "30px" }}
                            onClick={() => {
-                              setTimeout(() => {
-                                 history.push("/dojoBlog");
-                              }, 1000 / 2);
+                              setTimeout(history.push("/dojoBlog"), 500);
                            }}
                         >
                            close
