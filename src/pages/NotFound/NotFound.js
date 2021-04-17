@@ -1,8 +1,20 @@
-import { Link } from "react-router-dom";
+//Hooks
+import { useEffect } from "react";
+import { Link, useHistory } from "react-router-dom";
+//Component
 import { Helmet } from "react-helmet";
+//CSS
 import styles from "./notfound.module.css";
 
 const NotFound = () => {
+   let history = useHistory();
+
+   useEffect(() => {
+      setTimeout(() => {
+         history.push("/dojoBlog");
+      }, 1000);
+   }, [history]);
+
    return (
       <div className={styles.notFound}>
          <Helmet>

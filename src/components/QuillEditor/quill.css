@@ -17,13 +17,6 @@
    font-family: "Quicksand";
 }
 
-.Blur {
-   border-color: white !important;
-}
-.Focus {
-   border-color: #f1356d !important;
-}
-
 .ql-editing {
    all: initial;
 }
@@ -161,7 +154,7 @@ strong {
    .ql-snow.ql-toolbar button svg,
    .ql-snow .ql-color-picker .ql-picker-label svg,
    .ql-snow .ql-icon-picker .ql-picker-label svg {
-      height: 22px;
+      height: 20px;
    }
    .ql-snow .ql-picker.ql-font .ql-picker-label::before,
    .ql-snow .ql-picker.ql-font .ql-picker-item::before,
@@ -176,6 +169,25 @@ strong {
    }
    .ql-undo i,
    .ql-redo i {
-      font-size: 25px !important;
+      font-size: 24px !important;
+   }
+   /*Custom headers*/
+   .ql-editor h1 {
+      font-size: 32px !important;
+   }
+   .ql-editor h2 {
+      font-size: 24px !important;
+   }
+   .ql-editor h3 {
+      font-size: 18.72px !important;
+   }
+   .ql-editor h4 {
+      font-size: 16px !important;
+   }
+   .ql-editor h5 {
+      font-size: 13.28px !important;
+   }
+   .ql-editor h6 {
+      font-size: 10.72px !important;
    }
 }

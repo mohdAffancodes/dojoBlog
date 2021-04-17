@@ -1,10 +1,9 @@
 import { useState, useEffect, useCallback } from "react";
-import { Helmet } from "react-helmet";
 //Quill JS
 import { useQuill } from "react-quilljs";
 //CSS
 import "quill/dist/quill.snow.css";
-import "./CSS/quill.css";
+import "./quill.css";
 //.undo
 let undo = document.createElement("i");
 undo.textContent = "rotate_left";
@@ -86,38 +85,21 @@ const QuillEditor = ({ id, placeholder, data, enable }) => {
       [quill]
    );
 
-   const toggleFocusBorder = (Q) => {
-      let focus;
-      let container = document.querySelector(".ql-container");
-      let toolbar = document.querySelector(".ql-toolbar");
-      setInterval(() => {
-         focus = Q.hasFocus();
-         if (focus) {
-            container.classList.remove("Blur");
-            toolbar.classList.remove("Blur");
-            container.classList.add("Focus");
-            toolbar.classList.add("Focus");
-         }
-         if (!focus) {
-            container.classList.remove("Focus");
-            toolbar.classList.remove("Focus");
-            container.classList.add("Blur");
-            toolbar.classList.add("Blur");
-         }
-      }, 1000);
-   };
-
    useEffect(() => {
       if (quill) {
          quill.enable(enable);
-         toggleFocusBorder(quill);
+      }
+   }, [quill, enable, handleClick]);
+
+   useEffect(() => {
+      if (quill) {
          //.undo and redo buttons
          document.querySelector(".ql-undo").appendChild(undo);
          document.querySelector(".ql-redo").appendChild(redo);
          handleClick(".ql-undo");
          handleClick(".ql-redo");
       }
-   }, [quill, enable, handleClick]);
+   }, [quill, handleClick]);
 
    if (data && quill && boolean === true) {
       //.console.log(data);
@@ -129,21 +111,6 @@ const QuillEditor = ({ id, placeholder, data, enable }) => {
 
    return (
       <div id={id}>
-         <Helmet>
-            {/*Katex for formulas*/}
-            <link
-               rel="stylesheet"
-               href="https://cdn.jsdelivr.net/npm/katex@0.13.0/dist/katex.min.css"
-               integrity="sha384-t5CR+zwDAROtph0PXGte6ia8heboACF9R5l/DiY+WZ3P2lxNgvJkQk5n7GPvLMYw"
-               crossorigin="anonymous"
-            />
-            <script
-               defer
-               src="https://cdn.jsdelivr.net/npm/katex@0.13.0/dist/katex.min.js"
-               integrity="sha384-FaFLTlohFghEIZkw6VGwmf9ISTubWAVYW8tG8+w2LAIftJEULZABrF9PPFv+tVkH"
-               crossorigin="anonymous"
-            ></script>
-         </Helmet>
          <div ref={quillRef} />
       </div>
    );

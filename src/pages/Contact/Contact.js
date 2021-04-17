@@ -1,9 +1,12 @@
+//Hooks
 import { useHistory } from "react-router-dom";
-import { Helmet } from "react-helmet";
-import useFetch from "../../hooks/useFetch";
+import useFetch from "../../api/useFetch";
 import { useState } from "react";
+//Components
+import { Helmet } from "react-helmet";
+import SquareLoader from "../../components/squareLoader/SquareLoader";
+//CSS
 import "./CSS/contact.css";
-import "./CSS/loader.css";
 import "./CSS/modal.css";
 
 const Contact = () => {
@@ -98,9 +101,7 @@ const Contact = () => {
                         Send
                      </button>
                   ) : (
-                     <span className="loader right">
-                        <span className="loader-inner"></span>
-                     </span>
+                     <SquareLoader alignment="right" />
                   )}
                </form>
             </section>

@@ -1,4 +1,6 @@
+//Imports
 import { Link } from "react-router-dom";
+//CSS
 import "./blogList.css";
 
 const BlogList = ({ blogs, docId }) => {

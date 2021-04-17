@@ -1,6 +1,9 @@
-import BlogList from "./BlogList";
+//Hook
+import useFetch from "../../api/useFetch";
+//Components
+import LinearLoader from "../../components/linearLoader/LinearLoader";
 import { Helmet } from "react-helmet";
-import useFetch from "../../hooks/useFetch";
+import BlogList from "./BlogList";
 
 const Home = () => {
    const { data: blogs, docId, isLoading, error } = useFetch("blog1");
@@ -16,11 +19,7 @@ const Home = () => {
                   {error}
                </div>
             )}
-            {isLoading && (
-               <div className="progress">
-                  <div className="indeterminate pink accent-3-only"></div>
-               </div>
-            )}
+            {isLoading && <LinearLoader />}
             {!error && blogs && <BlogList blogs={blogs} docId={docId} />}
          </div>
       </>

@@ -1,4 +1,4 @@
-.contact .loader {
+.loader {
    border-radius: 4px;
    display: inline-block;
    width: 30px;
@@ -9,7 +9,7 @@
    animation: loader 2s infinite ease;
 }
 
-.contact .loader-inner {
+.loader-inner {
    vertical-align: top;
    display: inline-block;
    width: 100%;

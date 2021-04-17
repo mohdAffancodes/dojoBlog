@@ -1,10 +1,13 @@
-import { useState } from "react";
-import { Helmet } from "react-helmet";
+//Hooks
 import { useHistory } from "react-router-dom";
-import useFetch from "../../hooks/useFetch";
-import "./CSS/create.css";
-import "./CSS/loader.css";
-import QuillEditor from "../QuillEditor/QuillEditor";
+import useFetch from "../../api/useFetch";
+import { useState } from "react";
+//Components
+import SquareLoader from "../../components/squareLoader/SquareLoader";
+import QuillEditor from "../../components/QuillEditor/QuillEditor";
+import { Helmet } from "react-helmet";
+//CSS
+import "./create.css";
 
 const Create = () => {
    const history = useHistory();
@@ -98,7 +101,6 @@ const Create = () => {
                />
                <h6>Blog body:</h6>
                <QuillEditor placeholder={"Compose an epic"} enable={enable} />
-
                <label style={{ marginTop: "10px" }}>Blog author:</label>
                <input
                   type="text"
@@ -110,9 +112,7 @@ const Create = () => {
                   disabled={isSending}
                />
                {isSending ? (
-                  <span className="loader">
-                     <span className="loader-inner"></span>
-                  </span>
+                  <SquareLoader />
                ) : (
                   <button className="waves-effect waves-light">Add Blog</button>
                )}

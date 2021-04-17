@@ -1,8 +1,12 @@
+//Hooks
 import { useParams, useHistory } from "react-router-dom";
-import QuillEditor from "../QuillEditor/QuillEditor";
 import { useState, useEffect } from "react";
-import useFetch from "../../hooks/useFetch";
+import useFetch from "../../api/useFetch";
+//Components
+import LinearLoader from "../../components/linearLoader/LinearLoader";
+import QuillEditor from "../../components/QuillEditor/QuillEditor";
 import { Helmet } from "react-helmet";
+//CSS
 import "./blogDetails.css";
 
 const BlogDetails = () => {
@@ -67,11 +71,7 @@ const BlogDetails = () => {
          <Helmet>{blog && <title>{blog.title}</title>}</Helmet>
          <div className="blog-details">
             {updated && <h2>Saving Changes</h2>}
-            {(updated || isLoading) && (
-               <div className="progress">
-                  <div className="indeterminate pink accent-3-only"></div>
-               </div>
-            )}
+            {(updated || isLoading) && <LinearLoader />}
             {error && (
                <div style={{ fontSize: "20px", fontWeight: "700" }}>
                   {error}

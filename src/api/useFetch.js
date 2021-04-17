@@ -1,4 +1,4 @@
-import firebase from "../firebase";
+import firebase from "./firebase";
 import { useState, useEffect } from "react";
 
 const useFetch = (collection, id) => {
