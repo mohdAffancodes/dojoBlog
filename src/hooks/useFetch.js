@@ -28,7 +28,7 @@ const useFetch = (collection, id) => {
             .then((querySnapshot) => {
                let items = [];
                let ids = [];
-               querySnapshot.forEach((doc) => {
+                querySnapshot.forEach((doc) => {
                   // doc.data() is never undefined for query doc snapshots
                   items.push(doc.data());
                   ids.push(doc.id);
