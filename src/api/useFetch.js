@@ -1,7 +1,7 @@
 import firebase from "./firebase";
 import { useState, useEffect } from "react";
 
-const useFetch = (collection, fetch, id) => {
+const useFetch = (collection, id) => {
    const [data, setData] = useState(null);
    const [docId, setDocId] = useState(null);
    const [isLoading, setIsLoading] = useState(true);
@@ -45,7 +45,7 @@ const useFetch = (collection, fetch, id) => {
             });
       }
       return () => abort.abort();
-   }, [collection, db, id, fetch]);
+   }, [collection, db, id]);
 
    return { db, data, docId, isLoading, error };
 };
