@@ -12,7 +12,7 @@ const NotFound = () => {
    useEffect(() => {
       setTimeout(() => {
          history.push("/dojoBlog");
-      }, 1000);
+      }, 2000);
    }, [history]);
 
    return (

@@ -4,7 +4,7 @@ import useFetch from "../../api/useFetch";
 import { useState } from "react";
 //Components
 import { Helmet } from "react-helmet";
-import SquareLoader from "../../components/squareLoader/SquareLoader";
+import SquareLoader from "../../components/loaders/squareLoader/SquareLoader";
 //CSS
 import "./CSS/contact.css";
 import "./CSS/modal.css";

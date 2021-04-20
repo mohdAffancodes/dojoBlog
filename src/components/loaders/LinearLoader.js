@@ -1,5 +1,3 @@
-import "./linearLoader.css";
-
 const LinearLoader = () => {
    return (
       <div className="progress">

@@ -1,7 +1,7 @@
 import firebase from "./firebase";
 import { useState, useEffect } from "react";
 
-const useFetch = (collection, id) => {
+const useFetch = (collection, fetch, id) => {
    const [data, setData] = useState(null);
    const [docId, setDocId] = useState(null);
    const [isLoading, setIsLoading] = useState(true);
@@ -28,7 +28,7 @@ const useFetch = (collection, id) => {
             .then((querySnapshot) => {
                let items = [];
                let ids = [];
-                querySnapshot.forEach((doc) => {
+               querySnapshot.forEach((doc) => {
                   // doc.data() is never undefined for query doc snapshots
                   items.push(doc.data());
                   ids.push(doc.id);
@@ -45,7 +45,7 @@ const useFetch = (collection, id) => {
             });
       }
       return () => abort.abort();
-   }, [collection, db, id]);
+   }, [collection, db, id, fetch]);
 
    return { db, data, docId, isLoading, error };
 };

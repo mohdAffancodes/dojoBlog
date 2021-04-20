@@ -1,7 +1,7 @@
 //Hook
 import useFetch from "../../api/useFetch";
 //Components
-import LinearLoader from "../../components/linearLoader/LinearLoader";
+import LinearLoader from "../../components/loaders/LinearLoader";
 import { Helmet } from "react-helmet";
 import BlogList from "./BlogList";
 

@@ -3,7 +3,7 @@ import { useParams, useHistory } from "react-router-dom";
 import { useState, useEffect } from "react";
 import useFetch from "../../api/useFetch";
 //Components
-import LinearLoader from "../../components/linearLoader/LinearLoader";
+import LinearLoader from "../../components/loaders/LinearLoader";
 import QuillEditor from "../../components/QuillEditor/QuillEditor";
 import { Helmet } from "react-helmet";
 //CSS
