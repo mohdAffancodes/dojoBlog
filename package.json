@@ -1,6 +1,6 @@
 {
    "name": "dojo-blog",
-   "homepage": "http://mohdAffancodes.github.io/dojoBlog",
+   //"homepage": "http://mohdAffancodes.github.io/dojoBlog",
    "version": "0.1.0",
    "private": true,
    "dependencies": {
