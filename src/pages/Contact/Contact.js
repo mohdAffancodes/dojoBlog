@@ -1,6 +1,5 @@
 //Hooks
 import { useHistory } from "react-router-dom";
-import useFetch from "../../api/useFetch";
 import { useState } from "react";
 //Components
 import { Helmet } from "react-helmet";
@@ -8,25 +7,28 @@ import SquareLoader from "../../components/loaders/squareLoader/SquareLoader";
 //CSS
 import "./CSS/contact.css";
 import "./CSS/modal.css";
+//db
+import db from "../../api/firebase";
 
 const Contact = () => {
    const history = useHistory();
    const [email, setEmail] = useState("");
    const [message, setMessage] = useState("");
    const [isSending, setIsSending] = useState(false);
-   const { db } = useFetch("messages");
 
    const handleSubmit = (e) => {
       e.preventDefault();
       setIsSending(true);
 
-      db.add({
-         email: email,
-         message: message,
-      }).then(() => {
-         openModal();
-         setIsSending(false);
-      });
+      db.collection("messages")
+         .add({
+            email: email,
+            message: message,
+         })
+         .then(() => {
+            openModal();
+            setIsSending(false);
+         });
    };
 
    const openModal = () => {

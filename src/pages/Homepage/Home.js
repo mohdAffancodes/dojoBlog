@@ -1,26 +1,26 @@
-//Hook
-import useFetch from "../../api/useFetch";
 //Components
 import LinearLoader from "../../components/loaders/LinearLoader";
 import { Helmet } from "react-helmet";
 import BlogList from "./BlogList";
+//hook
+import { useFirestoreQuery } from "../../api/useFirestoreQuery";
 
 const Home = () => {
-   const { data: blogs, docId, isLoading, error } = useFetch("blog1");
-   //.console.log(blogs);
+   const { data, status, error } = useFirestoreQuery("blog1");
+   //.console.log(data);
    return (
       <>
          <Helmet>
             <title>Dojo-Blog | Home</title>
          </Helmet>
          <div className="home">
-            {error && (
+            {status === "error" && (
                <div style={{ fontSize: "20px", fontWeight: "700" }}>
-                  {error}
+                  {error.message}
                </div>
             )}
-            {isLoading && <LinearLoader />}
-            {!error && blogs && <BlogList blogs={blogs} docId={docId} />}
+            {status === "loading" && <LinearLoader />}
+            {status === "success" && <BlogList blogs={data} />}
          </div>
       </>
    );

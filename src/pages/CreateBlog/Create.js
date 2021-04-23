@@ -1,6 +1,5 @@
 //Hooks
 import { useHistory } from "react-router-dom";
-import useFetch from "../../api/useFetch";
 import { useState } from "react";
 //Components
 import SquareLoader from "../../components/loaders/squareLoader/SquareLoader";
@@ -8,6 +7,8 @@ import QuillEditor from "../../components/QuillEditor/QuillEditor";
 import { Helmet } from "react-helmet";
 //CSS
 import "./create.css";
+//db
+import db from "../../api/firebase";
 
 const Create = () => {
    const history = useHistory();
@@ -16,8 +17,6 @@ const Create = () => {
    const [enable, setEnable] = useState(true);
    const [isSending, setIsSending] = useState(false);
    const [author, setAuthor] = useState("Anonymous");
-
-   const { db } = useFetch("blog1");
 
    const handleSubmit = (e) => {
       e.preventDefault();
@@ -65,17 +64,19 @@ const Create = () => {
             setIsSending(false);
             history.push("/dojoBlog");
          } else {
-            db.add({
-               createdAt: Date.now(),
-               title: title,
-               body: JSON.stringify(delta),
-               author: author,
-            }).then(() => {
-               setEnable(true);
-               //console.log("New blog Added");
-               setIsSending(false);
-               history.push("/dojoBlog");
-            });
+            db.collection("blog1")
+               .add({
+                  createdAt: Date.now(),
+                  title: title,
+                  body: JSON.stringify(delta),
+                  author: author,
+               })
+               .then(() => {
+                  setEnable(true);
+                  //console.log("New blog Added");
+                  setIsSending(false);
+                  history.push("/dojoBlog");
+               });
          }
       }
    };

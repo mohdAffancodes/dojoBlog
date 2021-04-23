@@ -1,13 +1,15 @@
 //Hooks
 import { useParams, useHistory } from "react-router-dom";
 import { useState, useEffect } from "react";
-import useFetch from "../../api/useFetch";
+import { useFirestoreQuery } from "../../api/useFirestoreQuery";
 //Components
 import LinearLoader from "../../components/loaders/LinearLoader";
 import QuillEditor from "../../components/QuillEditor/QuillEditor";
 import { Helmet } from "react-helmet";
 //CSS
 import "./blogDetails.css";
+//db
+import db from "../../api/firebase";
 
 const BlogDetails = () => {
    const { id } = useParams();
@@ -16,14 +18,15 @@ const BlogDetails = () => {
    const [enable, setEnable] = useState(false);
    const [updated, setUpdated] = useState(false);
    //.Using fetch hook
-   const { db, data, isLoading, error } = useFetch("blog1", id);
+   const { data, isLoading, error } = useFirestoreQuery("blog1", id);
    //.setting the data
    useEffect(() => {
       setBlog(data);
    }, [data]);
 
    const deleteBlog = () => {
-      db.doc(id)
+      db.collection("blog1")
+         .doc(id)
          .delete()
          .then(() => {
             history.push("/dojoBlog");
@@ -33,23 +36,16 @@ const BlogDetails = () => {
    const editBlog = (e) => {
       e = e || window.event;
       let editIcon = e.target || e.srcElement;
-      //.element to be edited
+      //.elements to be edited
       let blogTitle = document.querySelector("#title");
       let toolbar = document.querySelector("#blogBody .ql-toolbar");
 
       if (editIcon.textContent === "edit") {
-         blogTitle.contentEditable = true;
-         editIcon.textContent = "check";
          setEnable(true);
-         //.make toolbar visible
-         toolbar.style.visibility = "visible";
-         toolbar.style.setProperty("height", "initial");
+         showToolbar();
       } else if (editIcon.textContent === "check") {
          setUpdated(true);
-         blogTitle.contentEditable = true;
-         //.hide toolbar
-         toolbar.style.visibility = "hidden";
-         toolbar.style.height = "0px";
+         hideToolbar();
          //.Getting editor contents
          let delta = JSON.stringify(window.quill.getContents());
          //.Sending to firestore
@@ -61,8 +57,24 @@ const BlogDetails = () => {
             .then(() => {
                setUpdated(false);
             });
-         editIcon.textContent = "edit";
          setEnable(false);
+      }
+
+      function showToolbar() {
+         blogTitle.contentEditable = true;
+         editIcon.textContent = "check";
+
+         //.make toolbar visible
+         toolbar.style.visibility = "visible";
+         toolbar.style.setProperty("height", "initial");
+      }
+
+      function hideToolbar() {
+         blogTitle.contentEditable = true;
+         editIcon.textContent = "edit";
+         //.hide toolbar
+         toolbar.style.visibility = "hidden";
+         toolbar.style.height = "0px";
       }
    };
 
@@ -94,18 +106,12 @@ const BlogDetails = () => {
                   </h2>
                   <h6>
                      <span id="author">Written by {blog.author}</span>
-                     <i
-                        className="material-icons editIcon hide-on-med-and-down"
-                        onClick={editBlog}
-                     >
-                        edit
-                     </i>
                   </h6>
                   <QuillEditor id="blogBody" data={blog.body} enable={enable} />
                </article>
             )}
             {!isLoading && !updated && (
-               <div className="floater hide-on-large-only">
+               <div className="floater">
                   <i
                      className="material-icons editIcon"
                      onClick={editBlog}

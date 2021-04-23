@@ -15,4 +15,5 @@ if (!firebase.apps.length) {
    firebase.app(); // if already initialized, use that one
 }
 firebase.firestore().settings({ timeStampsInSnapshots: true });
-export default firebase;
+let db = firebase.firestore();
+export default db;
