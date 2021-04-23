@@ -16,9 +16,9 @@ const BlogDetails = () => {
    const history = useHistory();
    const [blog, setBlog] = useState(null);
    const [enable, setEnable] = useState(false);
-   const [updated, setUpdated] = useState(false);
+   const [updating, setUpdating] = useState(false);
    //.Using fetch hook
-   const { data, isLoading, error } = useFirestoreQuery("blog1", id);
+   const { data, status, error } = useFirestoreQuery("blog1", id);
    //.setting the data
    useEffect(() => {
       setBlog(data);
@@ -44,7 +44,7 @@ const BlogDetails = () => {
          setEnable(true);
          showToolbar();
       } else if (editIcon.textContent === "check") {
-         setUpdated(true);
+         setUpdating(true);
          hideToolbar();
          //.Getting editor contents
          let delta = JSON.stringify(window.quill.getContents());
@@ -55,7 +55,7 @@ const BlogDetails = () => {
                title: blogTitle.textContent,
             })
             .then(() => {
-               setUpdated(false);
+               setUpdating(false);
             });
          setEnable(false);
       }
@@ -82,8 +82,8 @@ const BlogDetails = () => {
       <>
          <Helmet>{blog && <title>{blog.title}</title>}</Helmet>
          <div className="blog-details">
-            {updated && <h2>Saving Changes</h2>}
-            {(updated || isLoading) && <LinearLoader />}
+            {updating && <h2>Saving Changes</h2>}
+            {(updating || status === "loading") && <LinearLoader />}
             {error && (
                <div style={{ fontSize: "20px", fontWeight: "700" }}>
                   {error}
@@ -110,7 +110,7 @@ const BlogDetails = () => {
                   <QuillEditor id="blogBody" data={blog.body} enable={enable} />
                </article>
             )}
-            {!isLoading && !updated && (
+            {status === "success" && !updating && (
                <div className="floater">
                   <i
                      className="material-icons editIcon"
