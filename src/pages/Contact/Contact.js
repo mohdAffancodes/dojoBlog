@@ -2,7 +2,7 @@
 import { useHistory } from "react-router-dom";
 import { useState } from "react";
 //Components
-import { Helmet } from "react-helmet";
+import { Helmet } from "react-helmet-async";
 import SquareLoader from "../../components/loaders/squareLoader/SquareLoader";
 //CSS
 import "./CSS/contact.css";

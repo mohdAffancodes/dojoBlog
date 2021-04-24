@@ -5,7 +5,7 @@ import { useFirestoreQuery } from "../../api/useFirestoreQuery";
 //Components
 import LinearLoader from "../../components/loaders/LinearLoader";
 import QuillEditor from "../../components/QuillEditor/QuillEditor";
-import { Helmet } from "react-helmet";
+import { Helmet } from "react-helmet-async";
 //CSS
 import "./blogDetails.css";
 //db

@@ -2,7 +2,7 @@
 import { useEffect } from "react";
 import { Link, useHistory } from "react-router-dom";
 //Component
-import { Helmet } from "react-helmet";
+import { Helmet } from "react-helmet-async";
 //CSS
 import styles from "./notfound.module.css";
 

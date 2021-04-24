@@ -1,6 +1,6 @@
 //Components
 import LinearLoader from "../../components/loaders/LinearLoader";
-import { Helmet } from "react-helmet";
+import { Helmet } from "react-helmet-async";
 import BlogList from "./BlogList";
 //hook
 import { useFirestoreQuery } from "../../api/useFirestoreQuery";

@@ -26,8 +26,8 @@
    color: rgb(202, 202, 202);
 }
 .create input:focus {
-   border-bottom: 1px solid #f1356d !important;
-   box-shadow: 0 1px 0 0 #f1356d !important;
+   border-bottom: 2px solid #f1356d !important;
+   box-shadow: none !important;
 }
 .create .authorInput {
    all: initial !important;
@@ -39,6 +39,7 @@
    font-family: "Quicksand", sans-serif !important;
    border: 2px solid #ddd !important;
    background-color: #f5f5f5c7 !important;
+   transition: 0.3s linear !important;
 }
 .create .authorInput:focus {
    border: 2px solid #f1356d !important;

@@ -4,7 +4,7 @@ import { useState } from "react";
 //Components
 import SquareLoader from "../../components/loaders/squareLoader/SquareLoader";
 import QuillEditor from "../../components/QuillEditor/QuillEditor";
-import { Helmet } from "react-helmet";
+import { Helmet } from "react-helmet-async";
 //CSS
 import "./create.css";
 //db
