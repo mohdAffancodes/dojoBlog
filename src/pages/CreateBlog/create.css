@@ -39,7 +39,6 @@
    font-family: "Quicksand", sans-serif !important;
    border: 2px solid #ddd !important;
    background-color: #f5f5f5c7 !important;
-   transition: 0.3s linear !important;
 }
 .create .authorInput:focus {
    border: 2px solid #f1356d !important;
