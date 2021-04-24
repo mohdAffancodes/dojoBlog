@@ -20,7 +20,7 @@ function App() {
                         <Home />
                      </Route>
                      <Route exact path="/dojoBlog/create">
-                        <Create />;
+                        <Create />
                      </Route>
                      <Route exact path="/dojoBlog/contact">
                         <Contact />
