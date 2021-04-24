@@ -191,3 +191,10 @@ strong {
       font-size: 10.72px !important;
    }
 }
+
+#ql-parent:focus-within > .ql-toolbar {
+   border-color: #f1356d !important;
+}
+.ql-container:focus-within {
+   border-color: #f1356d !important;
+}

@@ -101,7 +101,11 @@ const Create = () => {
                   disabled={isSending}
                />
                <h6>Blog body:</h6>
-               <QuillEditor placeholder={"Compose an epic"} enable={enable} />
+               <QuillEditor
+                  id="ql-parent"
+                  placeholder={"Compose an epic"}
+                  enable={enable}
+               />
                <label style={{ marginTop: "10px" }}>Blog author:</label>
                <input
                   type="text"
