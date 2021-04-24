@@ -6,7 +6,6 @@
 .ql-toolbar,
 .ql-container {
    width: 100%;
-   transition: 0.3s linear !important;
    background-color: #f5f5f5c7 !important;
    border: 2px solid !important;
    border-color: white !important;
