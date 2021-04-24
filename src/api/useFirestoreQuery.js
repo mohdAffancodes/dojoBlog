@@ -18,7 +18,7 @@ const reducer = (state, action) => {
 
 // Hook
 export function useFirestoreQuery(collection, uid) {
-   let query = db.collection(collection);
+   let query = db.collection(collection).orderBy("createdAt", "desc");
    if (uid) {
       query = db.collection(collection).doc(uid);
    }

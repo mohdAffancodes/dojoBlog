@@ -41,23 +41,29 @@ const BlogDetails = () => {
       let toolbar = document.querySelector("#blogBody .ql-toolbar");
 
       if (editIcon.textContent === "edit") {
-         setEnable(true);
          showToolbar();
+         //.enabling the quill editor
+         setEnable(true);
       } else if (editIcon.textContent === "check") {
          setUpdating(true);
          hideToolbar();
          //.Getting editor contents
          let delta = JSON.stringify(window.quill.getContents());
          //.Sending to firestore
+         sendData(delta, blogTitle.textContent);
+         //.Disabling the quill editor
+         setEnable(false);
+      }
+
+      function sendData(body, title) {
          db.doc(id)
             .update({
-               body: delta,
-               title: blogTitle.textContent,
+               body,
+               title,
             })
             .then(() => {
                setUpdating(false);
             });
-         setEnable(false);
       }
 
       function showToolbar() {
@@ -89,7 +95,7 @@ const BlogDetails = () => {
                   {error}
                </div>
             )}
-            {blog && !updated && (
+            {blog && !updating && (
                <article>
                   <h2>
                      <span id="title">{blog.title}</span>

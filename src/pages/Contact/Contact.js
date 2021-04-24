@@ -9,6 +9,8 @@ import "./CSS/contact.css";
 import "./CSS/modal.css";
 //db
 import db from "../../api/firebase";
+//Materialize
+import M from "../../../node_modules/materialize-css/dist/js/materialize.min.js";
 
 const Contact = () => {
    const history = useHistory();
@@ -33,7 +35,7 @@ const Contact = () => {
 
    const openModal = () => {
       var elem = document.querySelector(".modal");
-      var instance = window.M.Modal.init(elem);
+      var instance = M.Modal.init(elem);
       instance.open();
    };
 
