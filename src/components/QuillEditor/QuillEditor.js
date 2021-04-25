@@ -2,7 +2,7 @@ import { useState, useEffect, useCallback } from "react";
 //Quill JS
 import { useQuill } from "react-quilljs";
 //CSS
-import "quill/dist/quill.snow.css";
+import "./quill.snow.css";
 import "./quill.css";
 //.undo
 let undo = document.createElement("i");
