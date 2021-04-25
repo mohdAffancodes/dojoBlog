@@ -56,3 +56,7 @@
    border-radius: 8px;
    cursor: pointer;
 }
+
+.addBlog:hover {
+   transform: scale(1.05);
+}

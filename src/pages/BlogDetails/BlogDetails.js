@@ -1,7 +1,6 @@
 //Hooks
 import { useParams, useHistory } from "react-router-dom";
 import { useState, useEffect, useContext } from "react";
-//import { useFirestoreQuery } from "../../api/useFirestoreQuery";
 //Components
 import LinearLoader from "../../components/loaders/LinearLoader";
 import QuillEditor from "../../components/QuillEditor/QuillEditor";
@@ -17,20 +16,30 @@ const BlogDetails = () => {
    const history = useHistory();
    const [blog, setBlog] = useState(null);
    const [enable, setEnable] = useState(false);
-   const [deleted, setDeleted] = useState(false);
+   const [fired, setFired] = useState(false);
    const [updating, setUpdating] = useState(false);
-   //.Usind Context
-   const { data, status, error } = useContext(DataContext);
+   //.Using Context
+   const { state, snapshot } = useContext(DataContext);
+   //.console.log(snapshot);
+   const { data, status, error } = state;
 
    //.setting the data
    useEffect(() => {
-      if (!deleted) {
+      if (!fired) {
          setBlog(data[id]);
+      } else if (fired && snapshot !== "removed") {
+         setBlog(data[id]);
+      } else if (fired && snapshot === "removed") {
+         history.push("/dojoBlog");
       }
-   }, [data, id, deleted]);
+      //console.log(fired);
+   }, [data, id, fired, snapshot, history]);
+
+   useEffect(() => {
+      setFired(true);
+   }, []);
 
    const deleteBlog = () => {
-      setDeleted(true);
       db.collection("blog1")
          .doc(data[id].id)
          .delete()

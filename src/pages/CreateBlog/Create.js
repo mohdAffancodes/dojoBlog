@@ -120,7 +120,9 @@ const Create = () => {
                {isSending ? (
                   <SquareLoader />
                ) : (
-                  <button className="waves-effect waves-light">Add Blog</button>
+                  <button className="waves-effect waves-light addBlog">
+                     Add Blog
+                  </button>
                )}
             </form>
          </div>

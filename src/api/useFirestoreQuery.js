@@ -1,4 +1,4 @@
-import { useReducer, useEffect, useRef } from "react";
+import { useReducer, useEffect, useRef, useState } from "react";
 import db from "./firebase";
 // Reducer for hook state and actions
 const reducer = (state, action) => {
@@ -32,12 +32,14 @@ export function useFirestoreQuery(collection, uid) {
       error: undefined,
    };
 
+   const [snapshot, setSnapshot] = useState(null);
+
    // Setup our state and actions
    const [state, dispatch] = useReducer(reducer, initialState);
 
    // Get cached Firestore query object with useMemoCompare (https://usehooks.com/useMemoCompare)
    // Needed because firestore.collection("profiles").doc(uid) will always being a new object reference
-   // causing effect to run -> state change -> rerender -> effect runs -> etc ...
+   // causing effect to run -> state change -> re-render -> effect runs -> etc ...
    // This is nicer than requiring hook consumer to always memoize query with useMemo.
    const queryCached = useMemoCompare(query, (prevQuery) => {
       // Use built-in Firestore isEqual method to determine if "equal"
@@ -59,6 +61,9 @@ export function useFirestoreQuery(collection, uid) {
       return queryCached.onSnapshot(
          (response) => {
             // Get data for collection or doc
+            response.docChanges().forEach((change) => {
+               setSnapshot(change.type);
+            });
             const data = response.docs
                ? getCollectionData(response)
                : getDocData(response);
@@ -71,7 +76,7 @@ export function useFirestoreQuery(collection, uid) {
       );
    }, [queryCached]); // Only run effect if queryCached changes
 
-   return state;
+   return { state, snapshot };
 }
 
 // Get doc data and merge doc.id
