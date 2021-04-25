@@ -3,16 +3,24 @@
    margin-top: 10px;
 }
 
+#ql-parent {
+   margin-top: 10px;
+   border: 2px solid white;
+}
+
+.ql-toolbar {
+   margin-top: 0 !important;
+}
+
 .ql-toolbar,
 .ql-container {
    width: 100%;
    background-color: #f5f5f5c7 !important;
-   border: 2px solid !important;
-   border-color: white !important;
+   border: none !important;
 }
 
 .ql-container.ql-snow {
-   border-top: none !important;
+   border-top: 2px solid white !important;
    color: #1c1c1c;
    font-family: "Quicksand";
 }
@@ -192,9 +200,7 @@ strong {
    }
 }
 
-#ql-parent:focus-within > .ql-toolbar {
-   border-color: #f1356d !important;
-}
-.ql-container:focus-within {
+#ql-parent:focus-within,
+#ql-parent:focus-within > .ql-container {
    border-color: #f1356d !important;
 }
