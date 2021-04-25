@@ -19,8 +19,7 @@ const BlogDetails = () => {
    const [enable, setEnable] = useState(false);
    const [deleted, setDeleted] = useState(false);
    const [updating, setUpdating] = useState(false);
-   //.Using fetch hook
-
+   //.Usind Context
    const { data, status, error } = useContext(DataContext);
 
    //.setting the data
