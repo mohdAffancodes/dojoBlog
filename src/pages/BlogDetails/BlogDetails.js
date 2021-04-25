@@ -20,15 +20,22 @@ const BlogDetails = () => {
    const [updating, setUpdating] = useState(false);
    //.Using Context
    const { state, snapshot } = useContext(DataContext);
-   //.console.log(snapshot);
+   console.log(snapshot);
    const { data, status, error } = state;
 
    //.setting the data
    useEffect(() => {
       if (!fired) {
+         //initial load
          setBlog(data[id]);
+         console.log("initial");
       } else if (fired && snapshot !== "removed") {
+         //to re-render only  if this blog is not  deleted somewhere
          setBlog(data[id]);
+      } else if (fired && snapshot === "modified") {
+         //re-render only if blog is modified
+         setBlog(data[id]);
+         //.setEnable(true);
       }
       //console.log(fired);
    }, [data, id, fired, snapshot]);

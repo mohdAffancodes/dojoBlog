@@ -89,7 +89,7 @@ const QuillEditor = ({ id, placeholder, data, enable }) => {
       if (quill) {
          quill.enable(enable);
       }
-   }, [quill, enable, handleClick]);
+   }, [quill, enable]);
 
    useEffect(() => {
       if (quill) {
@@ -100,6 +100,10 @@ const QuillEditor = ({ id, placeholder, data, enable }) => {
          handleClick(".ql-redo");
       }
    }, [quill, handleClick]);
+
+   useEffect(() => {
+      setBoolean(true);
+   }, [data]);
 
    if (data && quill && boolean === true) {
       //.console.log(data);
