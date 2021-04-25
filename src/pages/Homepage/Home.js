@@ -7,8 +7,7 @@ import { useContext } from "react";
 import { DataContext } from "../../stores/dataContext";
 
 const Home = () => {
-   const { state } = useContext(DataContext);
-   const { data, status, error } = state;
+   const { data, status, error } = useContext(DataContext);
    //.console.log(data);
    return (
       <>
