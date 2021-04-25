@@ -5,6 +5,7 @@ export const DataContext = createContext(null);
 
 export default function DataProvider({ children }) {
    const { state , snapshot} = useFirestoreQuery("blog1");
+   const { data, status, error } = state;
 
-   return <DataContext.Provider value={state, snapshot}>{children}</DataContext.Provider>;
+   return <DataContext.Provider value={data, status, error, snapshot}>{children}</DataContext.Provider>;
 }
