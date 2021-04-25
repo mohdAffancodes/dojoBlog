@@ -16,7 +16,7 @@ const Create = () => {
    const [title, setTitle] = useState("");
    const [author, setAuthor] = useState("Anonymous");
 
-   const [enable, setEnable] = useState(true); //Enable for QuillEditor
+   const [editable, setEditable] = useState(true); //Enable for QuillEditor
    const [isSending, setIsSending] = useState(false);
 
    const handleSubmit = (e) => {
@@ -57,9 +57,8 @@ const Create = () => {
          };
          window.quill.setContents(pleaseFillThis);
       } else {
-         //.console.log("not editable");
          setIsSending(true);
-         setEnable(false);
+         setEditable(false);
 
          if (editor === "Please Fill this") {
             setIsSending(false);
@@ -73,7 +72,7 @@ const Create = () => {
                   author: author,
                })
                .then(() => {
-                  setEnable(true);
+                  setEditable(true);
                   //console.log("New blog Added");
                   setIsSending(false);
                   history.push("/dojoBlog");
@@ -105,7 +104,7 @@ const Create = () => {
                <QuillEditor
                   id="ql-parent"
                   placeholder={"Compose an epic"}
-                  enable={enable}
+                  enable={editable}
                />
                <label style={{ marginTop: "10px" }}>Blog author:</label>
                <input
