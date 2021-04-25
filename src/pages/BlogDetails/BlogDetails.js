@@ -15,14 +15,12 @@ const BlogDetails = () => {
    const { id } = useParams();
    const history = useHistory();
    const [blog, setBlog] = useState(null);
-   const [enable, setEnable] = useState(false);
+   const [editable, setEditable] = useState(false);
    const [fired, setFired] = useState(false);
    const [updating, setUpdating] = useState(false);
    //.Using Context
-   const { state, snapshot } = useContext(DataContext);
+   const { data, status, error, snapshot } = useContext(DataContext);
    console.log(snapshot);
-   const { data, status, error } = state;
-
    //.setting the data
    useEffect(() => {
       if (!fired) {
@@ -35,7 +33,6 @@ const BlogDetails = () => {
       } else if (fired && snapshot === "modified") {
          //re-render only if blog is modified
          setBlog(data[id]);
-         //.setEnable(true);
       }
       //console.log(fired);
    }, [data, id, fired, snapshot]);
@@ -62,14 +59,14 @@ const BlogDetails = () => {
 
       if (editIcon.textContent === "edit") {
          showToolbar();
-         setEnable(true); //enabling the quill editor
+         setEditable(true); //enabling the quill editor
          return;
       }
       if (editIcon.textContent === "check") {
          hideToolbar();
          setUpdating(true);
          sendData();
-         setEnable(false); //Disabling the quill editor
+         setEditable(false); //Disabling the quill editor
          return;
       }
 
@@ -135,7 +132,7 @@ const BlogDetails = () => {
                   <h6>
                      <span id="author">Written by {blog.author}</span>
                   </h6>
-                  <QuillEditor id="blogBody" data={blog.body} enable={enable} />
+                  <QuillEditor id="blogBody" data={blog.body} enable={editable} />
                </article>
             )}
             {status === "success" && !updating && (
