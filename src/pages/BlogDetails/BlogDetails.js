@@ -29,11 +29,9 @@ const BlogDetails = () => {
          setBlog(data[id]);
       } else if (fired && snapshot !== "removed") {
          setBlog(data[id]);
-      } else if (fired && snapshot === "removed") {
-         history.push("/dojoBlog");
       }
       //console.log(fired);
-   }, [data, id, fired, snapshot, history]);
+   }, [data, id, fired, snapshot]);
 
    useEffect(() => {
       setFired(true);
