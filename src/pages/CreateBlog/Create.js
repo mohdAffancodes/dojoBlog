@@ -12,11 +12,12 @@ import db from "../../api/firebase";
 
 const Create = () => {
    const history = useHistory();
-
+   //.Data to send
    const [title, setTitle] = useState("");
-   const [enable, setEnable] = useState(true);
-   const [isSending, setIsSending] = useState(false);
    const [author, setAuthor] = useState("Anonymous");
+
+   const [enable, setEnable] = useState(true); //Enable for QuillEditor
+   const [isSending, setIsSending] = useState(false);
 
    const handleSubmit = (e) => {
       e.preventDefault();
@@ -25,8 +26,8 @@ const Create = () => {
       let media = false;
       //.console.log(options);
       function compareKeys(a, b) {
-         var aKeys = Object.keys(a).sort();
-         var bKeys = Object.keys(b).sort();
+         let aKeys = Object.keys(a).sort();
+         let bKeys = Object.keys(b).sort();
          return JSON.stringify(aKeys) === JSON.stringify(bKeys);
       }
       //.checking for img or vid

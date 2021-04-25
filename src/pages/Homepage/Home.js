@@ -3,10 +3,11 @@ import LinearLoader from "../../components/loaders/LinearLoader";
 import { Helmet } from "react-helmet-async";
 import BlogList from "./BlogList";
 //hook
-import { useFirestoreQuery } from "../../api/useFirestoreQuery";
+import { useContext } from "react";
+import { DataContext } from "../../stores/dataContext";
 
 const Home = () => {
-   const { data, status, error } = useFirestoreQuery("blog1");
+   const { data, status, error } = useContext(DataContext);
    //.console.log(data);
    return (
       <>

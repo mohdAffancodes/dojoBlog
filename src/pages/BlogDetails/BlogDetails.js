@@ -1,7 +1,7 @@
 //Hooks
 import { useParams, useHistory } from "react-router-dom";
-import { useState, useEffect } from "react";
-import { useFirestoreQuery } from "../../api/useFirestoreQuery";
+import { useState, useEffect, useContext } from "react";
+//import { useFirestoreQuery } from "../../api/useFirestoreQuery";
 //Components
 import LinearLoader from "../../components/loaders/LinearLoader";
 import QuillEditor from "../../components/QuillEditor/QuillEditor";
@@ -10,23 +10,30 @@ import { Helmet } from "react-helmet-async";
 import "./blogDetails.css";
 //db
 import db from "../../api/firebase";
+import { DataContext } from "../../stores/dataContext";
 
 const BlogDetails = () => {
    const { id } = useParams();
    const history = useHistory();
    const [blog, setBlog] = useState(null);
    const [enable, setEnable] = useState(false);
+   const [deleted, setDeleted] = useState(false);
    const [updating, setUpdating] = useState(false);
    //.Using fetch hook
-   const { data, status, error } = useFirestoreQuery("blog1", id);
+
+   const { data, status, error } = useContext(DataContext);
+
    //.setting the data
    useEffect(() => {
-      setBlog(data);
-   }, [data]);
+      if (!deleted) {
+         setBlog(data[id]);
+      }
+   }, [data, id, deleted]);
 
    const deleteBlog = () => {
+      setDeleted(true);
       db.collection("blog1")
-         .doc(id)
+         .doc(data[id].id)
          .delete()
          .then(() => {
             history.push("/dojoBlog");
@@ -42,24 +49,26 @@ const BlogDetails = () => {
 
       if (editIcon.textContent === "edit") {
          showToolbar();
-         //.enabling the quill editor
-         setEnable(true);
-      } else if (editIcon.textContent === "check") {
-         setUpdating(true);
+         setEnable(true); //enabling the quill editor
+         return;
+      }
+      if (editIcon.textContent === "check") {
          hideToolbar();
-         //.Getting editor contents
-         let delta = JSON.stringify(window.quill.getContents());
-         //.Sending to firestore
-         sendData(delta, blogTitle.textContent);
-         //.Disabling the quill editor
-         setEnable(false);
+         setUpdating(true);
+         sendData();
+         setEnable(false); //Disabling the quill editor
+         return;
       }
 
-      function sendData(body, title) {
-         db.doc(id)
+      function sendData() {
+         //.Getting editor contents
+         let body = JSON.stringify(window.quill.getContents());
+
+         db.collection("blog1")
+            .doc(data[id].id)
             .update({
                body,
-               title,
+               title: blogTitle.textContent,
             })
             .then(() => {
                setUpdating(false);
