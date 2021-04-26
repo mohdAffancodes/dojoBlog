@@ -4,8 +4,11 @@ import { useFirestoreQuery } from "../api/useFirestoreQuery";
 export const DataContext = createContext(null);
 
 export default function DataProvider({ children }) {
-   const { state , snapshot} = useFirestoreQuery("blog1");
+   const { state, snapshot } = useFirestoreQuery("blog1");
    const { data, status, error } = state;
+   const context = { data, status, error, snapshot };
 
-   return <DataContext.Provider value={data, status, error, snapshot}>{children}</DataContext.Provider>;
+   return (
+      <DataContext.Provider value={context}>{children}</DataContext.Provider>
+   );
 }
