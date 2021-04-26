@@ -71,9 +71,7 @@ const BlogDetails = () => {
    const history = useHistory();
    const [blog, setBlog] = useState(null);
    //.Using Context
-   const { data, status, error, change } = useContext(DataContext);
-   const snapshot = change[0];
-   const doc = change[1];
+   const { data, status, error, [snapshot, doc] } = useContext(DataContext);
 
    useEffect(() => {
       if (snapshot === "modified" && doc === data[id].id) {
@@ -90,7 +88,7 @@ const BlogDetails = () => {
          // console.log("initial");
       }
       //console.log(fired);
-   }, [data, id, fired, snapshot, doc, history, deleting]);
+   }, [data, id, fired, snapshot, doc, deleting]);
 
    useEffect(() => {
       dispatch({ type: "initialLoad" });
