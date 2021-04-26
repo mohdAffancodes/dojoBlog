@@ -23,8 +23,28 @@ const Create = () => {
       e.preventDefault();
       let delta = window.quill.getContents();
       let options = delta.ops;
-      let media = false;
       //.console.log(options);
+      let editor = document.querySelector(".ql-container").textContent;
+      if (
+         checkForMedia(options) === false &&
+         ((editor === "" && options[0].insert === "\n") || editor === "")
+      ) {
+         pleaseFillThis();
+      } else {
+         setIsSending(true);
+         setEditable(false);
+         if (editor === "Please Fill this") {
+            setIsSending(false);
+            history.push("/dojoBlog");
+         } else {
+            sendData(delta);
+         }
+      }
+   };
+
+   function checkForMedia(options) {
+      let media = false;
+
       function compareKeys(a, b) {
          let aKeys = Object.keys(a).sort();
          let bKeys = Object.keys(b).sort();
@@ -40,46 +60,37 @@ const Create = () => {
             //.console.log(media);
          }
       }
+      return media;
+   }
 
-      let editor = document.querySelector(".ql-container").textContent;
-      if (
-         media === false &&
-         ((editor === "" && options[0].insert === "\n") || editor === "")
-      ) {
-         let pleaseFillThis = {
-            ops: [
-               {
-                  attributes: { size: "large", color: "#a10000", bold: true },
-                  insert: "Please Fill this",
-               },
-               { attributes: { align: "center", header: 1 }, insert: "\n" },
-            ],
-         };
-         window.quill.setContents(pleaseFillThis);
-      } else {
-         setIsSending(true);
-         setEditable(false);
-
-         if (editor === "Please Fill this") {
+   function sendData(body) {
+      db.collection("blog1")
+         .add({
+            createdAt: Date.now(),
+            title: title,
+            body: JSON.stringify(body),
+            author: author,
+         })
+         .then(() => {
+            setEditable(true);
+            //console.log("New blog Added");
             setIsSending(false);
             history.push("/dojoBlog");
-         } else {
-            db.collection("blog1")
-               .add({
-                  createdAt: Date.now(),
-                  title: title,
-                  body: JSON.stringify(delta),
-                  author: author,
-               })
-               .then(() => {
-                  setEditable(true);
-                  //console.log("New blog Added");
-                  setIsSending(false);
-                  history.push("/dojoBlog");
-               });
-         }
-      }
-   };
+         });
+   }
+
+   function pleaseFillThis() {
+      let pleaseFillThis = {
+         ops: [
+            {
+               attributes: { size: "large", color: "#a10000", bold: true },
+               insert: "Please Fill this",
+            },
+            { attributes: { align: "center", header: 1 }, insert: "\n" },
+         ],
+      };
+      window.quill.setContents(pleaseFillThis);
+   }
 
    return (
       <>

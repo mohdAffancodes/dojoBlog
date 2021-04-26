@@ -42,6 +42,13 @@ const reducer = (state, action) => {
             updating: false,
             deleting: false,
          };
+      case "edit":
+         return {
+            editable: true,
+            fired: true,
+            updating: false,
+            deleting: false,
+         };
       default:
          return state;
    }

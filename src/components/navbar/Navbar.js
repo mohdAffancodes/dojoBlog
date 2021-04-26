@@ -8,7 +8,7 @@ const Navbar = () => {
          <nav className="nav-fixed">
             <div className="nav-wrapper">
                <Link to="/dojoBlog" className="brandLogo">
-                  Dojo Blog
+                  dojoblog
                </Link>
                <ul id="nav-mobile" className="right">
                   <li>
