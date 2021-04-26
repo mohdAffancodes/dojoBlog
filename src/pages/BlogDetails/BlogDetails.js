@@ -70,9 +70,6 @@ const BlogDetails = () => {
    const { id } = useParams();
    const history = useHistory();
    const [blog, setBlog] = useState(null);
-   //const [editable, setEditable] = useState(false);
-   //const [fired, setFired] = useState(false);
-   //const [updating, setUpdating] = useState(false);
    //.Using Context
    const { data, status, error, change } = useContext(DataContext);
    const snapshot = change[0];
@@ -82,7 +79,6 @@ const BlogDetails = () => {
       if (snapshot === "modified" && doc === data[id].id) {
          //re-render only if blog is modified
          setBlog(data[id]);
-         console.log("M");
       } else if (
          snapshot === "removed" &&
          doc === data[id].id &&
@@ -90,9 +86,8 @@ const BlogDetails = () => {
       ) {
          openModal();
       } else if (!fired) {
-         //initial load
          setBlog(data[id]);
-         console.log("initial");
+         // console.log("initial");
       }
       //console.log(fired);
    }, [data, id, fired, snapshot, doc, history, deleting]);
@@ -174,7 +169,7 @@ const BlogDetails = () => {
 
    return (
       <>
-         <Helmet>{blog && <title>{blog.title}</title>}</Helmet>
+         <Helmet>{blog && <title>{blog.title} | Dojo-Blog</title>}</Helmet>
          <div className="blog-details">
             {updating && <h2>Saving Changes</h2>}
             {(updating || status === "loading") && <LinearLoader />}
