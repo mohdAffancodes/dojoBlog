@@ -1,47 +1,102 @@
 //Hooks
-import { useParams, useHistory } from "react-router-dom";
-import { useState, useEffect, useContext } from "react";
+import { useParams, useHistory, Link } from "react-router-dom";
+import { useState, useEffect, useContext, useReducer } from "react";
 //Components
 import LinearLoader from "../../components/loaders/LinearLoader";
 import QuillEditor from "../../components/QuillEditor/QuillEditor";
 import { Helmet } from "react-helmet-async";
+import M from "../../../node_modules/materialize-css/dist/js/materialize.min.js";
 //CSS
 import "./blogDetails.css";
 //db
 import db from "../../api/firebase";
 import { DataContext } from "../../stores/dataContext";
 
+const reducer = (state, action) => {
+   switch (action.type) {
+      case "save":
+         return {
+            editable: false,
+            fired: true,
+            updating: true,
+            deleting: false,
+         };
+      case "updated":
+         return {
+            editable: false,
+            fired: true,
+            updating: false,
+            deleting: false,
+         };
+      case "delete":
+         return {
+            editable: false,
+            fired: true,
+            updating: false,
+            deleting: true,
+         };
+      case "initialLoad":
+         return {
+            editable: false,
+            fired: true,
+            updating: false,
+            deleting: false,
+         };
+      default:
+         return state;
+   }
+};
+
 const BlogDetails = () => {
+   const initialState = {
+      editable: false,
+      fired: false,
+      updating: false,
+      deleting: false,
+   };
+
+   const [{ editable, fired, updating, deleting }, dispatch] = useReducer(
+      reducer,
+      initialState
+   );
+
    const { id } = useParams();
    const history = useHistory();
    const [blog, setBlog] = useState(null);
-   const [editable, setEditable] = useState(false);
-   const [fired, setFired] = useState(false);
-   const [updating, setUpdating] = useState(false);
+   //const [editable, setEditable] = useState(false);
+   //const [fired, setFired] = useState(false);
+   //const [updating, setUpdating] = useState(false);
    //.Using Context
-   const { data, status, error, snapshot } = useContext(DataContext);
-   console.log(snapshot);
-   //.setting the data
+   const { data, status, error, change } = useContext(DataContext);
+   const snapshot = change[0];
+   const doc = change[1];
+
    useEffect(() => {
-      if (!fired) {
+      if (snapshot === "modified" && doc === data[id].id) {
+         //re-render only if blog is modified
+         setBlog(data[id]);
+         console.log("M");
+      } else if (
+         snapshot === "removed" &&
+         doc === data[id].id &&
+         deleting === false
+      ) {
+         openModal();
+      } else if (!fired) {
          //initial load
          setBlog(data[id]);
          console.log("initial");
-      } else if (fired && snapshot !== "removed") {
-         //to re-render only  if this blog is not  deleted somewhere
-         setBlog(data[id]);
-      } else if (fired && snapshot === "modified") {
-         //re-render only if blog is modified
-         setBlog(data[id]);
       }
       //console.log(fired);
-   }, [data, id, fired, snapshot]);
+   }, [data, id, fired, snapshot, doc, history, deleting]);
 
    useEffect(() => {
-      setFired(true);
+      dispatch({ type: "initialLoad" });
    }, []);
 
    const deleteBlog = () => {
+      dispatch({ type: "delete" });
+      //deleting the blog in the database
       db.collection("blog1")
          .doc(data[id].id)
          .delete()
@@ -59,14 +114,13 @@ const BlogDetails = () => {
 
       if (editIcon.textContent === "edit") {
          showToolbar();
-         setEditable(true); //enabling the quill editor
+         dispatch({ type: "edit" });
          return;
       }
       if (editIcon.textContent === "check") {
          hideToolbar();
-         setUpdating(true);
          sendData();
-         setEditable(false); //Disabling the quill editor
+         dispatch({ type: "save" });
          return;
       }
 
@@ -81,7 +135,7 @@ const BlogDetails = () => {
                title: blogTitle.textContent,
             })
             .then(() => {
-               setUpdating(false);
+               dispatch({ type: "updated" });
             });
       }
 
@@ -101,6 +155,14 @@ const BlogDetails = () => {
          toolbar.style.visibility = "hidden";
          toolbar.style.height = "0px";
       }
+   };
+
+   const openModal = () => {
+      var elem = document.querySelector(".modal");
+      var instance = M.Modal.init(elem);
+      instance.open();
+      document.querySelector(".editIcon").style.pointerEvents = "none";
+      document.querySelector(".deleteIcon").style.pointerEvents = "none";
    };
 
    return (
@@ -129,10 +191,14 @@ const BlogDetails = () => {
                         delete
                      </i>
                   </h2>
-                  <h6>
+                  <h6 style={{ marginBottom: "0.766667rem !important" }}>
                      <span id="author">Written by {blog.author}</span>
                   </h6>
-                  <QuillEditor id="blogBody" data={blog.body} enable={editable} />
+                  <QuillEditor
+                     id="blogBody"
+                     data={blog.body}
+                     enable={editable}
+                  />
                </article>
             )}
             {status === "success" && !updating && (
@@ -146,6 +212,32 @@ const BlogDetails = () => {
                   </i>
                </div>
             )}
+            <section className="infomodal">
+               <div id="modal3" className="modal">
+                  <div className="modal-content">
+                     <h3 id="info-modal-heading" style={{ color: "#f1356d" }}>
+                        Message
+                     </h3>
+                     <p className="info-modal-heading">
+                        This Blog has been deleted.You will now be redirected to
+                        HOME.
+                     </p>
+                  </div>
+                  <div className="modal-footer">
+                     <Link
+                        to="/dojoBlog"
+                        className="modal-close waves-effects btn-flat"
+                     >
+                        <i
+                           className="material-icons closeIcon"
+                           style={{ fontSize: "30px" }}
+                        >
+                           close
+                        </i>
+                     </Link>
+                  </div>
+               </div>
+            </section>
          </div>
       </>
    );

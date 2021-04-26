@@ -104,3 +104,20 @@
       right: 23px;
    }
 }
+/*modal*/
+
+.blog-details > .infomodal > #modal3 > .modal-content,
+.modal-footer,
+.modal-overlay {
+   margin-top: 0 !important;
+   margin-bottom: 0 !important;
+}
+.blog-details > .infomodal > #modal3 {
+   margin-top: 0 !important;
+   margin-bottom: 0 !important;
+   margin-left: auto !important;
+   margin-right: auto !important;
+}
+.blog-details > .infomodal > #modal3 > .modal-content > p {
+   text-align: left !important;
+}

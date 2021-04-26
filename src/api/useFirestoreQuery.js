@@ -32,7 +32,7 @@ export function useFirestoreQuery(collection, uid) {
       error: undefined,
    };
 
-   const [snapshot, setSnapshot] = useState(null);
+   const [change, setChange] = useState(null);
 
    // Setup our state and actions
    const [state, dispatch] = useReducer(reducer, initialState);
@@ -62,7 +62,8 @@ export function useFirestoreQuery(collection, uid) {
          (response) => {
             // Get data for collection or doc
             response.docChanges().forEach((change) => {
-               setSnapshot(change.type);
+               //console.log(`${change.doc.id}:${change.type}`);
+               setChange([change.type, change.doc.id]);
             });
             const data = response.docs
                ? getCollectionData(response)
@@ -76,7 +77,7 @@ export function useFirestoreQuery(collection, uid) {
       );
    }, [queryCached]); // Only run effect if queryCached changes
 
-   return { state, snapshot };
+   return { state, change };
 }
 
 // Get doc data and merge doc.id
