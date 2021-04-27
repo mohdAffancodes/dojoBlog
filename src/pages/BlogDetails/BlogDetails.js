@@ -11,6 +11,8 @@ import "./blogDetails.css";
 //db
 import db from "../../api/firebase";
 import { DataContext } from "../../stores/dataContext";
+//checks
+var filter = require("leo-profanity");
 
 const reducer = (state, action) => {
    switch (action.type) {
@@ -19,6 +21,13 @@ const reducer = (state, action) => {
             editable: false,
             fired: true,
             updating: true,
+            deleting: false,
+         };
+      case "reset":
+         return {
+            editable: false,
+            fired: true,
+            updating: false,
             deleting: false,
          };
       case "updated":
@@ -113,6 +122,8 @@ const BlogDetails = () => {
       //.elements to be edited
       let blogTitle = document.querySelector("#title");
       let toolbar = document.querySelector("#blogBody .ql-toolbar");
+      let editorText = document.querySelector("#blogBody .ql-container")
+         .textContent;
 
       if (editIcon.textContent === "edit") {
          showToolbar();
@@ -121,8 +132,16 @@ const BlogDetails = () => {
       }
       if (editIcon.textContent === "check") {
          hideToolbar();
-         sendData();
-         dispatch({ type: "save" });
+         if (
+            !filter.check(editorText) &&
+            !filter.check(blogTitle.textContent)
+         ) {
+            sendData();
+            dispatch({ type: "save" });
+         } else {
+            alert("This Is Prohibited");
+            history.push("/dojoBlog");
+         }
          return;
       }
 

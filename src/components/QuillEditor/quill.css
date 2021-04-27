@@ -56,10 +56,6 @@ strong {
    z-index: 500 !important;
 }
 
-.ql-video {
-   margin: 0 auto;
-}
-
 .ql-undo,
 .ql-redo {
    padding: 0 !important;
@@ -154,7 +150,6 @@ strong {
 .ql-snow .ql-toolbar .ql-picker-item.ql-selected .ql-stroke.ql-fill {
    fill: #f1356d;
 }
-
 @media only screen and (min-width: 600px) {
    .ql-editor img {
       width: 444px;
@@ -203,4 +198,9 @@ strong {
 #ql-parent:focus-within,
 #ql-parent:focus-within > .ql-container {
    border-color: #f1356d !important;
+}
+
+.resizable {
+   resize: both !important;
+   overflow: auto;
 }

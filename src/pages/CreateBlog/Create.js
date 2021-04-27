@@ -9,12 +9,14 @@ import { Helmet } from "react-helmet-async";
 import "./create.css";
 //db
 import db from "../../api/firebase";
+//checks
+var filter = require("leo-profanity");
 
 const Create = () => {
    const history = useHistory();
    //.Data to send
    const [title, setTitle] = useState("");
-   const [author, setAuthor] = useState("Anonymous");
+   const [author, setAuthor] = useState("");
 
    const [editable, setEditable] = useState(true); //Enable for QuillEditor
    const [isSending, setIsSending] = useState(false);
@@ -25,11 +27,14 @@ const Create = () => {
       let options = delta.ops;
       //.console.log(options);
       let editor = document.querySelector(".ql-container").textContent;
+      //.console.log(editor);
       if (
          checkForMedia(options) === false &&
          ((editor === "" && options[0].insert === "\n") || editor === "")
       ) {
          pleaseFillThis();
+      } else if (filter.check(editor)) {
+         thisIsProhibited();
       } else {
          setIsSending(true);
          setEditable(false);
@@ -92,6 +97,19 @@ const Create = () => {
       window.quill.setContents(pleaseFillThis);
    }
 
+   function thisIsProhibited() {
+      let thisIsProhibited = {
+         ops: [
+            {
+               attributes: { size: "large", color: "#a10000", bold: true },
+               insert: "This IS  Prohibited",
+            },
+            { attributes: { align: "center", header: 1 }, insert: "\n" },
+         ],
+      };
+      window.quill.setContents(thisIsProhibited);
+   }
+
    return (
       <>
          <Helmet>
@@ -106,7 +124,11 @@ const Create = () => {
                   required
                   value={title}
                   onChange={(e) => {
-                     setTitle(e.target.value);
+                     if (!filter.check(e.target.value)) {
+                        setTitle(e.target.value);
+                     } else {
+                        setTitle("");
+                     }
                   }}
                   className="titleInput"
                   disabled={isSending}
@@ -121,8 +143,13 @@ const Create = () => {
                <input
                   type="text"
                   required
+                  value={author}
                   onChange={(e) => {
-                     setAuthor(e.target.value);
+                     if (!filter.check(e.target.value)) {
+                        setAuthor(e.target.value);
+                     } else {
+                        setAuthor("");
+                     }
                   }}
                   className="authorInput"
                   disabled={isSending}
