@@ -53,8 +53,6 @@
    .navSpace {
       height: 56px;
    }
-}
-@media only screen and (max-width: 600px) {
    #nav-mobile {
       width: 100px !important;
    }
@@ -99,11 +97,42 @@
    position: absolute;
    color: var(--themeColor2) !important;
    font-weight: 700;
-   margin-left: 30px;
+   margin-left: 10px;
    display: inline-block;
    font-size: 2.2rem;
 }
 #nav-mobile li {
+   display: flex;
+   align-items: center;
+   justify-content: center;
+}
+
+.user {
+   cursor: pointer;
+   position: inherit;
+   top: 50%;
+   margin-left: 10px;
+   transform: translateY(-50%);
+   background-color: #f1356d;
+   border-radius: 50%;
+   width: 45px;
+   height: 45px;
+   color: white;
+   font-size: 30px;
+   font-weight: bold;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+}
+
+.dropdown-content li > a {
+   font-weight: bold;
+   font-size: 25px !important;
+   width: 100px !important;
+   height: 50px !important;
+   color: #f1356d !important;
+   line-height: 22px !important;
+   padding: 5px 5px !important;
    display: flex;
    align-items: center;
    justify-content: center;

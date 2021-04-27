@@ -1,10 +1,16 @@
-import { createContext } from "react";
+import { createContext, useContext } from "react";
 import { useFirestoreQuery } from "../api/useFirestoreQuery";
+import AuthContext from "./authContext";
 
 export const DataContext = createContext(null);
 
 export default function DataProvider({ children }) {
-   const { state, change } = useFirestoreQuery("blog1");
+   const { user } = useContext(AuthContext);
+   let email = "blog1";
+   if (user) {
+      email = user.email;
+   }
+   const { state, change } = useFirestoreQuery(email);
    const { data, status, error } = state;
    const context = { data, status, error, change };
 

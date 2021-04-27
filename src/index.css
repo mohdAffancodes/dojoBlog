@@ -20,3 +20,13 @@ body {
    -ms-user-select: none !important;
    user-select: none !important;
 }
+
+.loginHeader span {
+   color: #f1356d !important;
+   word-wrap: normal;
+   cursor: pointer;
+}
+
+.loginHeader {
+   word-wrap: normal;
+}

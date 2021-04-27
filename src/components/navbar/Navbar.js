@@ -1,14 +1,43 @@
 import { Link } from "react-router-dom";
 import "./navbar.css";
+import { useContext } from "react";
+import AuthContext from "../../stores/authContext";
+import M from "../../../node_modules/materialize-css/dist/js/materialize.min.js";
 
 const Navbar = () => {
+   const { user, logout } = useContext(AuthContext);
+
+   const dropDown = () => {
+      let elem = document.querySelector(".dropdown-trigger");
+      let instance = M.Dropdown.init(elem, {});
+      instance.open();
+   };
+
    return (
       <section id="nav">
          <div className="navSpace"></div>
          <nav className="nav-fixed">
             <div className="nav-wrapper">
-               <Link to="/dojoBlog" className="brandLogo">
-                  dojoblog
+               {user !== null && (
+                  <>
+                     <div
+                        className="user left dropdown-trigger"
+                        data-target="dropdown1"
+                        onClick={dropDown}
+                     >
+                        {user.user_metadata.full_name[0]}
+                     </div>
+                     <ul id="dropdown1" className="dropdown-content">
+                        <li>
+                           <a href="#Logout" onClick={logout}>
+                              Logout
+                           </a>
+                        </li>
+                     </ul>
+                  </>
+               )}
+               <Link to="/dojoBlog/" className="brandLogo">
+                  Dojo Blog
                </Link>
                <ul id="nav-mobile" className="right">
                   <li>

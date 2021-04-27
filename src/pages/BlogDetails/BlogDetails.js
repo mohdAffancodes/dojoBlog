@@ -11,6 +11,7 @@ import "./blogDetails.css";
 //db
 import db from "../../api/firebase";
 import { DataContext } from "../../stores/dataContext";
+import AuthContext from "../../stores/authContext";
 //checks
 var filter = require("leo-profanity");
 
@@ -64,6 +65,8 @@ const reducer = (state, action) => {
 };
 
 const BlogDetails = () => {
+   const { user } = useContext(AuthContext);
+
    const initialState = {
       editable: false,
       fired: false,
@@ -80,23 +83,26 @@ const BlogDetails = () => {
    const history = useHistory();
    const [blog, setBlog] = useState(null);
    //.Using Context
-   const { data, status, error, [snapshot, doc] } = useContext(DataContext);
+   const { data, status, error, change } = useContext(DataContext);
+   const snapshot = change[0];
+   const doc = change[1];
 
    useEffect(() => {
-      if (snapshot === "modified" && doc === data[id].id) {
-         //re-render only if blog is modified
-         setBlog(data[id]);
-      } else if (
-         snapshot === "removed" &&
-         doc === data[id].id &&
-         deleting === false
-      ) {
-         openModal();
-      } else if (!fired) {
-         setBlog(data[id]);
-         // console.log("initial");
+      if (deleting === false) {
+         if (snapshot === "modified" && doc === data[id].id) {
+            //re-render only if blog is modified
+            setBlog(data[id]);
+         } else if (
+            snapshot === "removed" &&
+            doc === data[id].id &&
+            deleting === false
+         ) {
+            openModal();
+         } else if (!fired) {
+            setBlog(data[id]);
+            // console.log("initial");
+         }
       }
-      //console.log(fired);
    }, [data, id, fired, snapshot, doc, deleting]);
 
    useEffect(() => {
@@ -106,7 +112,7 @@ const BlogDetails = () => {
    const deleteBlog = () => {
       dispatch({ type: "delete" });
       //deleting the blog in the database
-      db.collection("blog1")
+      db.collection(user.email)
          .doc(data[id].id)
          .delete()
          .then(() => {
@@ -147,7 +153,7 @@ const BlogDetails = () => {
          //.Getting editor contents
          let body = JSON.stringify(window.quill.getContents());
 
-         db.collection("blog1")
+         db.collection(user.email)
             .doc(data[id].id)
             .update({
                body,

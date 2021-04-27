@@ -1,6 +1,6 @@
 //Hooks
 import { useHistory } from "react-router-dom";
-import { useState } from "react";
+import { useContext, useState } from "react";
 //Components
 import SquareLoader from "../../components/loaders/squareLoader/SquareLoader";
 import QuillEditor from "../../components/QuillEditor/QuillEditor";
@@ -9,10 +9,13 @@ import { Helmet } from "react-helmet-async";
 import "./create.css";
 //db
 import db from "../../api/firebase";
+import AuthContext from "../../stores/authContext";
 //checks
 var filter = require("leo-profanity");
 
 const Create = () => {
+   const { user } = useContext(AuthContext);
+
    const history = useHistory();
    //.Data to send
    const [title, setTitle] = useState("");
@@ -69,7 +72,7 @@ const Create = () => {
    }
 
    function sendData(body) {
-      db.collection("blog1")
+      db.collection(user.email)
          .add({
             createdAt: Date.now(),
             title: title,
